@@ -65,6 +65,16 @@ public class ExtractionRunSummary {
                 .count();
     }
 
+    public long getProgressPercent() {
+        long progressPercent = 0;
+        if(getCountOfExtractorsAttempted() != 0) {
+            progressPercent = (getCountOfExtractorsRan() - getCountOfExtractorsInProgress()) * 100 / getCountOfExtractorsAttempted();
+
+        }
+
+        return progressPercent;
+    }
+
     public long getTotalExtractionTimeInSeconds() {
         return this.extractorResultMap.values().stream()
                 .map(result -> {
