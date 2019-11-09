@@ -15,6 +15,8 @@ public class AutomationConfiguration {
 
     private String browser;
 
+    private Boolean logoutAfterExtraction;
+
     private Boolean closeBrowserAfterExtraction;
 
     public List<SiteConfiguration> getSiteConfigurations() {
@@ -63,6 +65,14 @@ public class AutomationConfiguration {
 
     public void setBrowser(String browser) {
         this.browser = browser;
+    }
+
+    public Boolean getLogoutAfterExtraction() {
+        return logoutAfterExtraction;
+    }
+
+    public void setLogoutAfterExtraction(Boolean logoutAfterExtraction) {
+        this.logoutAfterExtraction = logoutAfterExtraction;
     }
 
     public Boolean getCloseBrowserAfterExtraction() {

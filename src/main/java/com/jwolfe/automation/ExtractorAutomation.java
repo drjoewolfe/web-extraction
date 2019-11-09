@@ -1,6 +1,5 @@
 package com.jwolfe.automation;
 
-import com.jwolfe.automation.configuration.YamlConfigLoader;
 import com.jwolfe.automation.exporters.JsonExporter;
 import com.jwolfe.automation.extractors.Extractor;
 import com.jwolfe.automation.extractors.ExtractorFactory;
@@ -21,6 +20,8 @@ import java.util.stream.Collectors;
 public class ExtractorAutomation {
     private static final Logger logger = LogManager.getLogger("ExtractorAutomation");
     private List<RunSummaryUpdatedListener> runSummmaryUpdatedlisteners = new ArrayList<RunSummaryUpdatedListener>();
+
+    private static WebDriver driver;
 
     public ExtractionRunSummary Run(AutomationConfiguration configuration) throws InterruptedException {
         logger.info("Initiating extraction run");
@@ -89,7 +90,7 @@ public class ExtractorAutomation {
         var records = runSummary.getExtract().getRecords();
 
         logger.info("Launching browser");
-        WebDriver driver = initialize(config);
+        WebDriver driver = initializeDriver(config);
 
         var extractorFactory = ExtractorFactory.getInstance();
         Extractor extractor = null;
@@ -127,7 +128,7 @@ public class ExtractorAutomation {
         }
 
         if(config.getCloseBrowserAfterExtraction()) {
-            driver.quit();
+            releaseDriver();
         }
 
         logger.info("Extraction complete. Total attempted: "
@@ -151,12 +152,18 @@ public class ExtractorAutomation {
         }
     }
 
-    private WebDriver initialize(AutomationConfiguration config){
-        if(config.getBrowser().equals("chrome")) {
-            return initializeChromeDriver();
-        } else {
-            return initializeFirefoxDriver();
+    private WebDriver initializeDriver(AutomationConfiguration config){
+        if(driver != null) {
+            return driver;
         }
+
+        if(config.getBrowser().equals("chrome")) {
+            driver = initializeChromeDriver();
+        } else {
+            driver = initializeFirefoxDriver();
+        }
+
+        return driver;
     }
 
     private WebDriver initializeFirefoxDriver() {
@@ -184,7 +191,7 @@ public class ExtractorAutomation {
         options.addArguments("user-data-dir=/home/apput/.config/google-chrome/");
 //        options.setExperimentalOption("prefs", prefs);
 //        options.setExperimentalOption("w3c", true);
-        options.addArguments("--no-sandbox");
+//        options.addArguments("--no-sandbox");
         options.addArguments("start-maximized");
 //        options.addArguments("--disable-extensions");
         options.addArguments("--disable-notifications");
@@ -194,6 +201,15 @@ public class ExtractorAutomation {
         driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
 
         return driver;
+    }
+
+    private void releaseDriver(){
+        if(driver == null) {
+            return;
+        }
+
+        driver.quit();
+        driver = null;
     }
 }
 

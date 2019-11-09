@@ -3,6 +3,7 @@ package com.jwolfe.automation.types;
 import com.jwolfe.automation.extractors.Extractor;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class ExtractionRunSummary {
     private Extract extract;
@@ -46,9 +47,21 @@ public class ExtractionRunSummary {
                 .count();
     }
 
+    public List<ExtractorResult> getExtractorsFailed() {
+        return this.extractorResultMap.values().stream()
+                .filter(extractor -> extractor.getRunStatus() == RunStatus.Failed)
+                .collect(Collectors.toList());
+    }
+
     public int getCountOfExtractorsFailed() {
        return (int) this.extractorResultMap.values().stream()
                 .filter(extractor -> extractor.getRunStatus() == RunStatus.Failed)
+                .count();
+    }
+
+    public int getCountOfExtractorsInProgress() {
+        return (int) this.extractorResultMap.values().stream()
+                .filter(extractor -> extractor.getRunStatus() == RunStatus.Running)
                 .count();
     }
 
@@ -60,6 +73,38 @@ public class ExtractionRunSummary {
                 })
                 .reduce((a, b) -> a + b)
                 .orElse(0L);
+    }
+
+    public long getAutomatedExtractionTimeInSeconds() {
+        return this.extractorResultMap.values().stream()
+                .map(result -> {
+                    var duration = result.getAutomatedRunDuration();
+                    return  duration == null ? 0 : duration.toSeconds();
+                })
+                .reduce((a, b) -> a + b)
+                .orElse(0L);
+    }
+
+    public long getManualExtractionTimeInSeconds() {
+        return this.extractorResultMap.values().stream()
+                .map(result -> {
+                    var duration = result.getInterventionDuration();
+                    return  duration == null ? 0 : duration.toSeconds();
+                })
+                .reduce((a, b) -> a + b)
+                .orElse(0L);
+    }
+
+    public float getTotalExtractionTimeInMinutes() {
+        return getTotalExtractionTimeInSeconds() / 60f;
+    }
+
+    public float getAutomatedExtractionTimeInMinutes() {
+        return getAutomatedExtractionTimeInSeconds() / 60f;
+    }
+
+    public float getManualExtractionTimeInMinutes() {
+        return getManualExtractionTimeInSeconds() / 60f;
     }
 
     public int getTotalRecordsExtracted() {

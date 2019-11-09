@@ -3,6 +3,7 @@ package com.jwolfe.automation.utilities;
 import com.jwolfe.automation.types.SiteConfiguration;
 import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedCondition;
@@ -63,12 +64,25 @@ public class SeleniumUtilities {
         (new WebDriverWait(driver, 10)).until(ExpectedConditions.visibilityOfElementLocated(By.id(id)));
     }
 
+    public static void WaitTillElementByNameVisible(WebDriver driver, String name) {
+        (new WebDriverWait(driver, 10)).until(ExpectedConditions.visibilityOfElementLocated(By.name(name)));
+    }
+
+    public static void WaitTillElementByClassVisible(WebDriver driver, String className) {
+        (new WebDriverWait(driver, 10)).until(ExpectedConditions.visibilityOfElementLocated(By.className(className)));
+    }
+
     public static void WaitTillXPathElementVisible(WebDriver driver, String elementXPath, int timeout) {
         (new WebDriverWait(driver, timeout)).until(ExpectedConditions.visibilityOfElementLocated(By.xpath(elementXPath)));
     }
 
     public static void WaitTillXPathElementVisible(WebDriver driver, String elementXPath) {
         (new WebDriverWait(driver, 10)).until(ExpectedConditions.visibilityOfElementLocated(By.xpath(elementXPath)));
+    }
+
+    public static void ScrollElementByXPathToView(WebDriver driver, String elementXPath) {
+        var element = driver.findElement(By.xpath(elementXPath));
+        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", element);
     }
 
     public static void WaitTillXPathElementClickable(WebDriver driver, String elementXPath) {
@@ -94,6 +108,14 @@ public class SeleniumUtilities {
             driver.findElement(By.id(buttonId)).click();
         } catch (Exception ex) {
             logger.info("Could not find button to click - " + buttonId + ". Proceeding");
+        }
+    }
+
+    public static void ClickElementByXPathIfExists(WebDriver driver, String xpath, Logger logger) {
+        try {
+            driver.findElement(By.xpath(xpath)).click();
+        } catch (Exception ex) {
+            logger.info("Could not find element to click - " + xpath + ". Proceeding");
         }
     }
 

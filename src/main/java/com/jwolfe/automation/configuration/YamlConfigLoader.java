@@ -10,8 +10,6 @@ import org.apache.commons.io.IOUtils;
 
 import java.io.*;
 
-import static org.apache.commons.io.IOUtils.toByteArray;
-
 public class YamlConfigLoader implements ConfigLoader {
     @Override
     public AutomationConfiguration GetConfigurationFromFile(String configFilePath) {

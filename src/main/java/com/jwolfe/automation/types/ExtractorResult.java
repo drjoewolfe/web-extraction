@@ -4,7 +4,6 @@ import com.jwolfe.automation.extractors.Extractor;
 import com.jwolfe.automation.types.records.ExtractionRecord;
 
 import java.time.Duration;
-import java.time.temporal.TemporalUnit;
 import java.util.ArrayList;
 import java.util.List;
 
