@@ -10,6 +10,7 @@ import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.util.concurrent.TimeUnit;
 import java.util.function.Function;
 
 public class SeleniumUtilities {
@@ -120,14 +121,28 @@ public class SeleniumUtilities {
     }
 
     public static void ClickButtonByIdIfExists(WebDriver driver, String iframeId, String buttonId, Logger logger) {
+        boolean clicked = false;
         try {
-            driver.switchTo().frame(driver.findElement(By.id(iframeId)));
-            driver.findElement(By.id(buttonId)).click();
-            Sleep(2, logger);
+            driver.manage().timeouts().implicitlyWait(0, TimeUnit.MILLISECONDS);
+            var frames = driver.findElements(By.id(iframeId));
+            if(frames.size() != 0) {
+                driver.switchTo().frame(frames.get(0));
+
+                var buttons = driver.findElements(By.id(buttonId));
+                if(buttons.size() != 0) {
+                    buttons.get(0).click();
+                    clicked = true;
+                }
+            }
         } catch (Exception ex) {
-            logger.info("Could not find button to click - " + buttonId + ". Proceeding");
+            clicked = false;
         } finally {
             driver.switchTo().defaultContent();
+            driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+        }
+
+        if(!clicked) {
+            logger.info("Could not find button to click - " + buttonId + ". Proceeding");
         }
     }
 
