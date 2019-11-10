@@ -105,9 +105,22 @@ public class SeleniumUtilities {
     }
 
     public static void ClickButtonByIdIfExists(WebDriver driver, String buttonId, Logger logger) {
+        boolean clicked = false;
         try {
-            driver.findElement(By.id(buttonId)).click();
+            driver.manage().timeouts().implicitlyWait(0, TimeUnit.MILLISECONDS);
+
+            var buttons = driver.findElements(By.id(buttonId));
+            if (buttons.size() != 0) {
+                buttons.get(0).click();
+                clicked = true;
+            }
         } catch (Exception ex) {
+            clicked = false;
+        } finally {
+            driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+        }
+
+        if (!clicked) {
             logger.info("Could not find button to click - " + buttonId + ". Proceeding");
         }
     }
