@@ -113,9 +113,22 @@ public class SeleniumUtilities {
     }
 
     public static void ClickElementByXPathIfExists(WebDriver driver, String xpath, Logger logger) {
+        boolean clicked = false;
         try {
-            driver.findElement(By.xpath(xpath)).click();
+            driver.manage().timeouts().implicitlyWait(0, TimeUnit.MILLISECONDS);
+
+            var elements = driver.findElements(By.xpath(xpath));
+            if (elements.size() != 0) {
+                elements.get(0).click();
+                clicked = true;
+            }
         } catch (Exception ex) {
+            clicked = false;
+        } finally {
+            driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+        }
+
+        if (!clicked) {
             logger.info("Could not find element to click - " + xpath + ". Proceeding");
         }
     }
