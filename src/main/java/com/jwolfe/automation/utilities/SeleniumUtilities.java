@@ -104,6 +104,60 @@ public class SeleniumUtilities {
         clickableElement.click();
     }
 
+    public static boolean ElementByIdExists(WebDriver driver, String id, Logger logger) {
+        boolean exists = false;
+        try {
+            driver.manage().timeouts().implicitlyWait(0, TimeUnit.MILLISECONDS);
+
+            var buttons = driver.findElements(By.id(id));
+            if (buttons.size() != 0) {
+                exists = true;
+            }
+        } catch (Exception ex) {
+            exists = false;
+        } finally {
+            driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+        }
+
+        if (exists) {
+            logger.info("Element by id - " + id + " exists");
+        }
+        else {
+            logger.info("Element by id - " + id + " does not exist");
+        }
+
+        return exists;
+    }
+
+    public static boolean ElementByClassNameExists(WebDriver driver, String className, Logger logger) {
+        boolean exists = false;
+        try {
+            driver.manage().timeouts().implicitlyWait(0, TimeUnit.MILLISECONDS);
+
+            var elements = driver.findElements(By.className(className));
+            if (elements.size() != 0) {
+                exists = true;
+            }
+        } catch (Exception ex) {
+            exists = false;
+        } finally {
+            driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+        }
+
+        if (exists) {
+            logger.info("Element by class - " + className + " exists");
+        }
+        else {
+            logger.info("Element by class - " + className + " does not exist");
+        }
+
+        return exists;
+    }
+
+    public static boolean ElementByClassNameExists(WebElement element, String className) {
+        return element.findElements(By.className(className)).size() != 0;
+    }
+
     public static void ClickButtonByIdIfExists(WebDriver driver, String buttonId, Logger logger) {
         boolean clicked = false;
         try {
@@ -205,19 +259,11 @@ public class SeleniumUtilities {
     }
 
     public static double GetDouble(String amountString) {
-        return Double.parseDouble( amountString.replaceAll("[^0-9\\.]", ""));
+        return Double.parseDouble( amountString.replaceAll("[^-0-9\\.]", ""));
     }
 
     public static boolean ElementExists(WebDriver driver, String xPath) {
         return driver.findElements(By.xpath(xPath)).size() != 0;
-    }
-
-    public static boolean ElementExistsByClassName(WebDriver driver, String className) {
-        return driver.findElements(By.className(className)).size() != 0;
-    }
-
-    public static boolean ElementExistsByClassName(WebElement element, String className) {
-        return element.findElements(By.className(className)).size() != 0;
     }
 
     public static String GetElementValueByClassName(WebElement element, String className, String defaultValue) {
