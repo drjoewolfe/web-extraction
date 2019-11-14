@@ -9,6 +9,7 @@ public class SiteConfiguration {
     private String userName;
     private String encryptedPassword;
     private String password;
+    private String pan;
 
     public String getName() {
         return name;
@@ -72,6 +73,14 @@ public class SiteConfiguration {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getPan() {
+        return pan;
+    }
+
+    public void setPan(String pan) {
+        this.pan = pan;
     }
 
     public SiteConfiguration() {
