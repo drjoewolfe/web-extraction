@@ -2,10 +2,7 @@ package com.jwolfe.automation.utilities;
 
 import com.jwolfe.automation.types.SiteConfiguration;
 import org.apache.logging.log4j.Logger;
-import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -22,7 +19,7 @@ public class SeleniumUtilities {
         logger.info("Navigating to login page");
         driver.get(siteConfig.getLoginUrl());
 
-        if(loginWaitSeconds > 0) {
+        if (loginWaitSeconds > 0) {
             Sleep(loginWaitSeconds, logger);
         }
 
@@ -96,7 +93,7 @@ public class SeleniumUtilities {
 
     public static void WaitAndClickXPathElement(WebDriver driver, String elementXPath, Function<? super WebDriver, Boolean> additionalWaitPredicate) {
         WaitTillXPathElementClickable(driver, elementXPath);
-        if(additionalWaitPredicate != null) {
+        if (additionalWaitPredicate != null) {
             (new WebDriverWait(driver, 10)).until(additionalWaitPredicate);
         }
 
@@ -121,8 +118,7 @@ public class SeleniumUtilities {
 
         if (exists) {
             logger.info("Element by id - " + id + " exists");
-        }
-        else {
+        } else {
             logger.info("Element by id - " + id + " does not exist");
         }
 
@@ -146,8 +142,7 @@ public class SeleniumUtilities {
 
         if (exists) {
             logger.info("Element by class - " + className + " exists");
-        }
-        else {
+        } else {
             logger.info("Element by class - " + className + " does not exist");
         }
 
@@ -205,11 +200,11 @@ public class SeleniumUtilities {
         try {
             driver.manage().timeouts().implicitlyWait(0, TimeUnit.MILLISECONDS);
             var frames = driver.findElements(By.id(iframeId));
-            if(frames.size() != 0) {
+            if (frames.size() != 0) {
                 driver.switchTo().frame(frames.get(0));
 
                 var buttons = driver.findElements(By.id(buttonId));
-                if(buttons.size() != 0) {
+                if (buttons.size() != 0) {
                     buttons.get(0).click();
                     clicked = true;
                 }
@@ -221,7 +216,7 @@ public class SeleniumUtilities {
             driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         }
 
-        if(!clicked) {
+        if (!clicked) {
             logger.info("Could not find button to click - " + buttonId + ". Proceeding");
         }
     }
@@ -238,28 +233,28 @@ public class SeleniumUtilities {
     }
 
     public static double GetDouble(WebElement element) {
-        return Double.parseDouble( element.getText().replaceAll("[^0-9\\.]", ""));
+        return Double.parseDouble(element.getText().replaceAll("[^0-9\\.]", ""));
     }
 
     public static double GetDouble(WebElement element, String[] preliminaryTrimStrings) {
         String text = element.getText();
-        for(String str : preliminaryTrimStrings) {
+        for (String str : preliminaryTrimStrings) {
             text = text.replaceAll(str, "");
         }
 
-        return Double.parseDouble( text.replaceAll("[^0-9\\.]", ""));
+        return Double.parseDouble(text.replaceAll("[^0-9\\.]", ""));
     }
 
     public static double GetDoubleForRupees(WebElement element) {
-        return Double.parseDouble( element.getText().replace("Rs.", "").replaceAll("[^0-9\\.]", ""));
+        return Double.parseDouble(element.getText().replace("Rs.", "").replaceAll("[^0-9\\.]", ""));
     }
 
     public static double GetDouble(WebElement rootElement, String childXPath) {
-        return Double.parseDouble( rootElement.findElement(By.xpath(childXPath)).getText().replaceAll("[^0-9\\.]", ""));
+        return Double.parseDouble(rootElement.findElement(By.xpath(childXPath)).getText().replaceAll("[^0-9\\.]", ""));
     }
 
     public static double GetDouble(String amountString) {
-        return Double.parseDouble( amountString.replaceAll("[^-0-9\\.]", ""));
+        return Double.parseDouble(amountString.replaceAll("[^-0-9\\.]", ""));
     }
 
     public static boolean ElementExists(WebDriver driver, String xPath) {
@@ -268,10 +263,21 @@ public class SeleniumUtilities {
 
     public static String GetElementValueByClassName(WebElement element, String className, String defaultValue) {
         var elements = element.findElements(By.className(className));
-        if(elements.size() == 0) {
+        if (elements.size() == 0) {
             return defaultValue;
         }
 
         return elements.get(0).getText();
+    }
+
+    public static void DismissAlertIfPresent(WebDriver driver, Logger logger) {
+        try {
+            var alert = driver.switchTo().alert();
+            alert.dismiss();
+            logger.info("Alert dismissed");
+
+        } catch (NoAlertPresentException Ex) {
+            logger.info("No alert found");
+        }
     }
 }

@@ -124,7 +124,10 @@ public abstract class ExtractorBase implements Extractor {
 
             if (extractedRecords != null) {
                 result.getRecords().addAll(extractedRecords);
-                result.setRunStatus(RunStatus.Succeeded);
+
+                if(result.getRunStatus() == RunStatus.Running) {
+                    result.setRunStatus(RunStatus.Succeeded);
+                }
             }
             else {
                 result.setRunStatus(RunStatus.Undefined);

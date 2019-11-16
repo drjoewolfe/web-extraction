@@ -65,6 +65,18 @@ public class ExtractionRunSummary {
                 .count();
     }
 
+    public int getCountOfExtractorsPartiallySucceeded() {
+        return (int) this.extractorResultMap.values().stream()
+                .filter(extractor -> extractor.getRunStatus() == RunStatus.Partial)
+                .count();
+    }
+
+    public int getCountOfExtractorsQueued() {
+        return (int) this.extractorResultMap.values().stream()
+                .filter(extractor -> extractor.getRunStatus() == RunStatus.Queued)
+                .count();
+    }
+
     public long getProgressPercent() {
         long progressPercent = 0;
         if(getCountOfExtractorsAttempted() != 0) {

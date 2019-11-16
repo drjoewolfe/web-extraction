@@ -111,7 +111,8 @@ public class ExtractorAutomation {
 
             extractor.Run(driver, extractorResult);
 
-            if(extractorResult.getRunStatus() == RunStatus.Succeeded) {
+            if(extractorResult.getRunStatus() == RunStatus.Succeeded
+                || extractorResult.getRunStatus() == RunStatus.Partial) {
                 records.addAll(extractorResult.getRecords());
             }
             else if(extractorResult.getRunStatus() == RunStatus.Failed) {
@@ -189,12 +190,13 @@ public class ExtractorAutomation {
 
         ChromeOptions options = new ChromeOptions();
         options.addArguments("user-data-dir=/home/apput/.config/google-chrome/");
-//        options.setExperimentalOption("prefs", prefs);
+        options.setExperimentalOption("prefs", prefs);
 //        options.setExperimentalOption("w3c", true);
 //        options.addArguments("--no-sandbox");
         options.addArguments("start-maximized");
-//        options.addArguments("--disable-extensions");
+        options.addArguments("--disable-extensions");
         options.addArguments("--disable-notifications");
+        // options.addArguments("--disable-popup-blocking");
 
         WebDriver driver = new ChromeDriver(options);
         driver.manage().window().maximize();
