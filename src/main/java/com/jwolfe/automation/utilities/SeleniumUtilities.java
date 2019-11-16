@@ -11,16 +11,16 @@ import java.util.concurrent.TimeUnit;
 import java.util.function.Function;
 
 public class SeleniumUtilities {
-    public static void Login(WebDriver driver, SiteConfiguration siteConfig, String userNameInputId, String passwordInputId, String loginButtonId, Logger logger) throws InterruptedException {
-        Login(driver, siteConfig, userNameInputId, passwordInputId, loginButtonId, 0, logger);
+    public static void login(final WebDriver driver, final SiteConfiguration siteConfig, final String userNameInputId, final String passwordInputId, final String loginButtonId, final Logger logger) throws InterruptedException {
+        login(driver, siteConfig, userNameInputId, passwordInputId, loginButtonId, 0, logger);
     }
 
-    public static void Login(WebDriver driver, SiteConfiguration siteConfig, String userNameInputId, String passwordInputId, String loginButtonId, int loginWaitSeconds, Logger logger) throws InterruptedException {
+    public static void login(final WebDriver driver, final SiteConfiguration siteConfig, final String userNameInputId, final String passwordInputId, final String loginButtonId, final int loginWaitSeconds, final Logger logger) throws InterruptedException {
         logger.info("Navigating to login page");
         driver.get(siteConfig.getLoginUrl());
 
         if (loginWaitSeconds > 0) {
-            Sleep(loginWaitSeconds, logger);
+            sleep(loginWaitSeconds, logger);
         }
 
         logger.info("Logging in");
@@ -35,7 +35,7 @@ public class SeleniumUtilities {
         logger.info("<Hope> Should be logged in now");
     }
 
-    public static void WaitTillNavigatedToUrlSuffix(WebDriver driver, String urlSuffix, Logger logger) {
+    public static void waitTillNavigatedToUrlSuffix(final WebDriver driver, final String urlSuffix, final Logger logger) {
         logger.info("Waiting for url suffix - " + urlSuffix);
         String lowerUrlSuffix = urlSuffix.toLowerCase();
 
@@ -46,53 +46,53 @@ public class SeleniumUtilities {
         });
     }
 
-    public static void WaitTillElementPresent(WebDriver driver, String id) {
+    public static void waitTillElementPresent(final WebDriver driver, final String id) {
         (new WebDriverWait(driver, 10)).until(ExpectedConditions.presenceOfElementLocated(By.id(id)));
     }
 
-    public static void WaitTillXPathElementPresent(WebDriver driver, String elementXPath, int timeout) {
+    public static void waitTillXPathElementPresent(final WebDriver driver, final String elementXPath, final int timeout) {
         (new WebDriverWait(driver, timeout)).until(ExpectedConditions.presenceOfElementLocated(By.xpath(elementXPath)));
     }
 
-    public static void WaitTillXPathElementPresent(WebDriver driver, String elementXPath) {
+    public static void waitTillXPathElementPresent(final WebDriver driver, final String elementXPath) {
         (new WebDriverWait(driver, 10)).until(ExpectedConditions.presenceOfElementLocated(By.xpath(elementXPath)));
     }
 
-    public static void WaitTillElementVisible(WebDriver driver, String id) {
+    public static void waitTillElementVisible(final WebDriver driver, final String id) {
         (new WebDriverWait(driver, 10)).until(ExpectedConditions.visibilityOfElementLocated(By.id(id)));
     }
 
-    public static void WaitTillElementByNameVisible(WebDriver driver, String name) {
+    public static void waitTillElementByNameVisible(final WebDriver driver, final String name) {
         (new WebDriverWait(driver, 10)).until(ExpectedConditions.visibilityOfElementLocated(By.name(name)));
     }
 
-    public static void WaitTillElementByClassVisible(WebDriver driver, String className) {
+    public static void waitTillElementByClassVisible(final WebDriver driver, final String className) {
         (new WebDriverWait(driver, 10)).until(ExpectedConditions.visibilityOfElementLocated(By.className(className)));
     }
 
-    public static void WaitTillXPathElementVisible(WebDriver driver, String elementXPath, int timeout) {
+    public static void waitTillXPathElementVisible(final WebDriver driver, final String elementXPath, final int timeout) {
         (new WebDriverWait(driver, timeout)).until(ExpectedConditions.visibilityOfElementLocated(By.xpath(elementXPath)));
     }
 
-    public static void WaitTillXPathElementVisible(WebDriver driver, String elementXPath) {
+    public static void waitTillXPathElementVisible(final WebDriver driver, final String elementXPath) {
         (new WebDriverWait(driver, 10)).until(ExpectedConditions.visibilityOfElementLocated(By.xpath(elementXPath)));
     }
 
-    public static void ScrollElementByXPathToView(WebDriver driver, String elementXPath) {
+    public static void scrollElementByXPathToView(final WebDriver driver, final String elementXPath) {
         var element = driver.findElement(By.xpath(elementXPath));
         ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", element);
     }
 
-    public static void WaitTillXPathElementClickable(WebDriver driver, String elementXPath) {
+    public static void waitTillXPathElementClickable(final WebDriver driver, final String elementXPath) {
         (new WebDriverWait(driver, 10)).until(ExpectedConditions.elementToBeClickable(By.xpath(elementXPath)));
     }
 
-    public static void WaitAndClickXPathElement(WebDriver driver, String elementXPath) {
-        WaitAndClickXPathElement(driver, elementXPath, null);
+    public static void waitAndClickXPathElement(final WebDriver driver, final String elementXPath) {
+        waitAndClickXPathElement(driver, elementXPath, null);
     }
 
-    public static void WaitAndClickXPathElement(WebDriver driver, String elementXPath, Function<? super WebDriver, Boolean> additionalWaitPredicate) {
-        WaitTillXPathElementClickable(driver, elementXPath);
+    public static void waitAndClickXPathElement(WebDriver driver, String elementXPath, Function<? super WebDriver, Boolean> additionalWaitPredicate) {
+        waitTillXPathElementClickable(driver, elementXPath);
         if (additionalWaitPredicate != null) {
             (new WebDriverWait(driver, 10)).until(additionalWaitPredicate);
         }
@@ -101,7 +101,7 @@ public class SeleniumUtilities {
         clickableElement.click();
     }
 
-    public static boolean ElementByIdExists(WebDriver driver, String id, Logger logger) {
+    public static boolean elementByIdExists(final WebDriver driver, final String id, final Logger logger) {
         boolean exists = false;
         try {
             driver.manage().timeouts().implicitlyWait(0, TimeUnit.MILLISECONDS);
@@ -125,7 +125,7 @@ public class SeleniumUtilities {
         return exists;
     }
 
-    public static boolean ElementByClassNameExists(WebDriver driver, String className, Logger logger) {
+    public static boolean elementByClassNameExists(final WebDriver driver, final String className, final Logger logger) {
         boolean exists = false;
         try {
             driver.manage().timeouts().implicitlyWait(0, TimeUnit.MILLISECONDS);
@@ -149,11 +149,11 @@ public class SeleniumUtilities {
         return exists;
     }
 
-    public static boolean ElementByClassNameExists(WebElement element, String className) {
+    public static boolean elementByClassNameExists(final WebElement element, final String className) {
         return element.findElements(By.className(className)).size() != 0;
     }
 
-    public static void ClickButtonByIdIfExists(WebDriver driver, String buttonId, Logger logger) {
+    public static void clickButtonByIdIfExists(final WebDriver driver, final String buttonId, final Logger logger) {
         boolean clicked = false;
         try {
             driver.manage().timeouts().implicitlyWait(0, TimeUnit.MILLISECONDS);
@@ -174,7 +174,7 @@ public class SeleniumUtilities {
         }
     }
 
-    public static void ClickElementByXPathIfExists(WebDriver driver, String xpath, Logger logger) {
+    public static void clickElementByXPathIfExists(final WebDriver driver, final String xpath, final Logger logger) {
         boolean clicked = false;
         try {
             driver.manage().timeouts().implicitlyWait(0, TimeUnit.MILLISECONDS);
@@ -195,7 +195,7 @@ public class SeleniumUtilities {
         }
     }
 
-    public static void ClickButtonByIdIfExists(WebDriver driver, String iframeId, String buttonId, Logger logger) {
+    public static void clickButtonByIdIfExists(final WebDriver driver, final String iframeId, final String buttonId, final Logger logger) {
         boolean clicked = false;
         try {
             driver.manage().timeouts().implicitlyWait(0, TimeUnit.MILLISECONDS);
@@ -221,22 +221,22 @@ public class SeleniumUtilities {
         }
     }
 
-    public static void Sleep(int seconds, Logger logger) throws InterruptedException {
+    public static void sleep(final int seconds, final Logger logger) throws InterruptedException {
         logger.info("Sleeping for " + seconds + " seconds");
         Thread.sleep(seconds * 1000);
 
         logger.info("Resuming from sleep");
     }
 
-    public static String GetString(WebElement rootElement, String childXPath) {
+    public static String getString(final WebElement rootElement, final String childXPath) {
         return rootElement.findElement(By.xpath(childXPath)).getText();
     }
 
-    public static double GetDouble(WebElement element) {
+    public static double getDouble(final WebElement element) {
         return Double.parseDouble(element.getText().replaceAll("[^0-9\\.]", ""));
     }
 
-    public static double GetDouble(WebElement element, String[] preliminaryTrimStrings) {
+    public static double getDouble(final WebElement element, final String[] preliminaryTrimStrings) {
         String text = element.getText();
         for (String str : preliminaryTrimStrings) {
             text = text.replaceAll(str, "");
@@ -245,23 +245,23 @@ public class SeleniumUtilities {
         return Double.parseDouble(text.replaceAll("[^0-9\\.]", ""));
     }
 
-    public static double GetDoubleForRupees(WebElement element) {
+    public static double getDoubleForRupees(final WebElement element) {
         return Double.parseDouble(element.getText().replace("Rs.", "").replaceAll("[^0-9\\.]", ""));
     }
 
-    public static double GetDouble(WebElement rootElement, String childXPath) {
+    public static double getDouble(final WebElement rootElement, final String childXPath) {
         return Double.parseDouble(rootElement.findElement(By.xpath(childXPath)).getText().replaceAll("[^0-9\\.]", ""));
     }
 
-    public static double GetDouble(String amountString) {
+    public static double getDouble(final String amountString) {
         return Double.parseDouble(amountString.replaceAll("[^-0-9\\.]", ""));
     }
 
-    public static boolean ElementExists(WebDriver driver, String xPath) {
+    public static boolean elementExists(final WebDriver driver, final String xPath) {
         return driver.findElements(By.xpath(xPath)).size() != 0;
     }
 
-    public static String GetElementValueByClassName(WebElement element, String className, String defaultValue) {
+    public static String getElementValueByClassName(final WebElement element, final String className, final String defaultValue) {
         var elements = element.findElements(By.className(className));
         if (elements.size() == 0) {
             return defaultValue;
@@ -270,7 +270,7 @@ public class SeleniumUtilities {
         return elements.get(0).getText();
     }
 
-    public static void DismissAlertIfPresent(WebDriver driver, Logger logger) {
+    public static void dismissAlertIfPresent(final WebDriver driver, final Logger logger) {
         try {
             var alert = driver.switchTo().alert();
             alert.dismiss();
