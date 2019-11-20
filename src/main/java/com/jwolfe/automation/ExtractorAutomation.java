@@ -38,7 +38,7 @@ public class ExtractorAutomation {
         logger.info("Record extraction completed");
 
         logger.info("Exporting extracted records");
-        new JsonExporter().Export(extract, configuration.getOutputFilePath(), configuration.isAppendToFile(), configuration.isBackupExistingFile());
+        new JsonExporter().export(extract, configuration.getOutputFilePath(), configuration.isAppendToFile(), configuration.isBackupExistingFile());
         notifyRunSummaryUpdatedListeners(runSummary);
 
         logger.info("Record export completed");
@@ -101,15 +101,15 @@ public class ExtractorAutomation {
             var extractorResult = runSummary.getExtractorResultMap().get(name);
 
             extractor = extractorFactory.getExtractor(name, config);
-            extractor.ClearExtractionProgressCallbacks();
-            extractor.RegisterExtractionProgressCallback(new Consumer<ExtractorResult>() {
+            extractor.clearExtractionProgressCallbacks();
+            extractor.registerExtractionProgressCallback(new Consumer<ExtractorResult>() {
                 @Override
                 public void accept(ExtractorResult result) {
                     notifyRunSummaryUpdatedListeners(runSummary);
                 }
             });
 
-            extractor.Run(driver, extractorResult);
+            extractor.run(driver, extractorResult);
 
             if(extractorResult.getRunStatus() == RunStatus.Succeeded
                 || extractorResult.getRunStatus() == RunStatus.Partial) {

@@ -19,7 +19,7 @@ import java.util.Scanner;
 public class JsonExporter implements Exporter {
     private static final Logger logger = LogManager.getLogger("JsonExporter");
 
-    public boolean Export(Extract extract, String outputFilePath, boolean appendToFile, boolean backupExistingFile) {
+    public boolean export(Extract extract, String outputFilePath, boolean appendToFile, boolean backupExistingFile) {
         logger.info("Exporting extract to " + outputFilePath);
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 

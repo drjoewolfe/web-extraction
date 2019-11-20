@@ -99,20 +99,20 @@ public abstract class ExtractorBase implements Extractor {
         this.description = description;
     }
 
-    public List<ExtractionRecord> GetRecords(WebDriver driver) throws InterruptedException, InterruptedIOException {
-        return GetRecords(driver, null);
+    public List<ExtractionRecord> getRecords(WebDriver driver) throws InterruptedException, InterruptedIOException {
+        return getRecords(driver, null);
     }
 
-    public List<ExtractionRecord> GetRecords(WebDriver driver, ExtractorResult result) throws InterruptedException, InterruptedIOException {
+    public List<ExtractionRecord> getRecords(WebDriver driver, ExtractorResult result) throws InterruptedException, InterruptedIOException {
         return null;
     }
 
-    public ExtractorResult Run(WebDriver driver) {
+    public ExtractorResult run(WebDriver driver) {
         ExtractorResult result = new ExtractorResult(this);
-        return Run(driver, result);
+        return run(driver, result);
     }
 
-    public ExtractorResult Run(WebDriver driver, ExtractorResult result) {
+    public ExtractorResult run(WebDriver driver, ExtractorResult result) {
         Stopwatch watch = Stopwatch.createUnstarted();
         watch.start();
 
@@ -120,7 +120,7 @@ public abstract class ExtractorBase implements Extractor {
             result.setRunStatus(RunStatus.Running);
             raiseExtractionProgressChanged(result);
 
-            var extractedRecords = this.GetRecords(driver, result);
+            var extractedRecords = this.getRecords(driver, result);
 
             if (extractedRecords != null) {
                 result.getRecords().addAll(extractedRecords);
@@ -152,7 +152,7 @@ public abstract class ExtractorBase implements Extractor {
     }
 
     @Override
-    public void RegisterUserInteractionRequestCallback(CheckedConsumer<String> callback){
+    public void registerUserInteractionRequestCallback(CheckedConsumer<String> callback){
         if(userInteractionRequestCallbacks == null) {
             userInteractionRequestCallbacks = new ArrayList<>();
         }
@@ -161,7 +161,7 @@ public abstract class ExtractorBase implements Extractor {
     }
 
     @Override
-    public void RegisterExtractionProgressCallback(Consumer<ExtractorResult> callback){
+    public void registerExtractionProgressCallback(Consumer<ExtractorResult> callback){
         if(extractionProgressCallbacks == null) {
             extractionProgressCallbacks = new ArrayList<>();
         }
@@ -170,7 +170,7 @@ public abstract class ExtractorBase implements Extractor {
     }
 
     @Override
-    public void ClearExtractionProgressCallbacks() {
+    public void clearExtractionProgressCallbacks() {
         if(extractionProgressCallbacks == null) {
             return;
         }

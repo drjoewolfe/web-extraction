@@ -10,7 +10,11 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import java.util.concurrent.TimeUnit;
 import java.util.function.Function;
 
-public class SeleniumUtilities {
+public final class SeleniumUtilities {
+    private SeleniumUtilities() {
+
+    }
+
     public static void login(final WebDriver driver, final SiteConfiguration siteConfig, final String userNameInputId, final String passwordInputId, final String loginButtonId, final Logger logger) throws InterruptedException {
         login(driver, siteConfig, userNameInputId, passwordInputId, loginButtonId, 0, logger);
     }
@@ -91,7 +95,7 @@ public class SeleniumUtilities {
         waitAndClickXPathElement(driver, elementXPath, null);
     }
 
-    public static void waitAndClickXPathElement(WebDriver driver, String elementXPath, Function<? super WebDriver, Boolean> additionalWaitPredicate) {
+    public static void waitAndClickXPathElement(WebDriver driver, String elementXPath, final Function<? super WebDriver, Boolean> additionalWaitPredicate) {
         waitTillXPathElementClickable(driver, elementXPath);
         if (additionalWaitPredicate != null) {
             (new WebDriverWait(driver, 10)).until(additionalWaitPredicate);

@@ -18,17 +18,17 @@ public interface Extractor {
 
     boolean isInteractionRequired();
 
-    List<ExtractionRecord> GetRecords(WebDriver driver) throws InterruptedException, InterruptedIOException;
+    List<ExtractionRecord> getRecords(WebDriver driver) throws InterruptedException, InterruptedIOException;
 
-    List<ExtractionRecord> GetRecords(WebDriver driver, ExtractorResult result) throws InterruptedException, InterruptedIOException;
+    List<ExtractionRecord> getRecords(WebDriver driver, ExtractorResult result) throws InterruptedException, InterruptedIOException;
 
-    ExtractorResult Run(WebDriver driver);
+    ExtractorResult run(WebDriver driver);
 
-    ExtractorResult Run(WebDriver driver, ExtractorResult result);
+    ExtractorResult run(WebDriver driver, ExtractorResult result);
 
-    void RegisterUserInteractionRequestCallback(CheckedConsumer<String> callback);
+    void registerUserInteractionRequestCallback(CheckedConsumer<String> callback);
 
-    void RegisterExtractionProgressCallback(Consumer<ExtractorResult> callback);
+    void registerExtractionProgressCallback(Consumer<ExtractorResult> callback);
 
-    void ClearExtractionProgressCallbacks();
+    void clearExtractionProgressCallbacks();
 }

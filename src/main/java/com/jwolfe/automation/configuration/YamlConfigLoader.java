@@ -12,8 +12,8 @@ import java.io.*;
 
 public class YamlConfigLoader implements ConfigLoader {
     @Override
-    public AutomationConfiguration GetConfigurationFromFile(String configFilePath) {
-        return GetConfigurationFromFile(configFilePath, null);
+    public AutomationConfiguration getConfigurationFromFile(String configFilePath) {
+        return getConfigurationFromFile(configFilePath, null);
     }
 
 //    @Override
@@ -47,7 +47,7 @@ public class YamlConfigLoader implements ConfigLoader {
 //    }
 
     @Override
-    public AutomationConfiguration GetConfigurationFromFile(String configFilePath, String password) {
+    public AutomationConfiguration getConfigurationFromFile(String configFilePath, String password) {
         var extension = FilenameUtils.getExtension(configFilePath);
 
         AutomationConfiguration configuration = null;
@@ -70,16 +70,16 @@ public class YamlConfigLoader implements ConfigLoader {
     }
 
     @Override
-    public AutomationConfiguration GetConfigurationFromResource(String resourcePath) {
+    public AutomationConfiguration getConfigurationFromResource(String resourcePath) {
         var stream = ResourceHelper.getResourceAsStream(resourcePath);
         return getConfigurationFromStream(stream);
     }
 
     @Override
-    public AutomationConfiguration GetConfigurationFromResource(String resourcePath, String password) {
+    public AutomationConfiguration getConfigurationFromResource(String resourcePath, String password) {
         AutomationConfiguration configuration = null;
         if (password == null || password.trim().equals("")) {
-            configuration = GetConfigurationFromResource(resourcePath);
+            configuration = getConfigurationFromResource(resourcePath);
         } else {
             // Encrypted configuration
             var box = new AesBox();
