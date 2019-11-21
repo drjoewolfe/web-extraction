@@ -87,7 +87,7 @@ public class AutomationConfiguration {
 
     }
 
-    public SiteConfiguration getSiteConfiguration(String name) {
+    public SiteConfiguration getSiteConfiguration(final String name) {
         return this.siteConfigurations.stream()
                 .filter(config -> name.equals(config.getName()))
                 .findAny()

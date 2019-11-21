@@ -47,7 +47,7 @@ public class YamlConfigLoader implements ConfigLoader {
 //    }
 
     @Override
-    public AutomationConfiguration getConfigurationFromFile(String configFilePath, String password) {
+    public AutomationConfiguration getConfigurationFromFile(final String configFilePath, final String password) {
         var extension = FilenameUtils.getExtension(configFilePath);
 
         AutomationConfiguration configuration = null;
