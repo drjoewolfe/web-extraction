@@ -125,17 +125,15 @@ public abstract class ExtractorBase implements Extractor {
             if (extractedRecords != null) {
                 result.getRecords().addAll(extractedRecords);
 
-                if(result.getRunStatus() == RunStatus.Running) {
+                if (result.getRunStatus() == RunStatus.Running) {
                     result.setRunStatus(RunStatus.Succeeded);
                 }
-            }
-            else {
+            } else {
                 result.setRunStatus(RunStatus.Undefined);
             }
 
             raiseExtractionProgressChanged(result);
-        }
-        catch (InterruptedException | InterruptedIOException iex) {
+        } catch (InterruptedException | InterruptedIOException iex) {
             result.setRunStatus(RunStatus.Cancelled);
             logger.error("Extraction run interrupted. Cancelling extraction.");
         } catch (Exception ex) {
@@ -152,8 +150,8 @@ public abstract class ExtractorBase implements Extractor {
     }
 
     @Override
-    public void registerUserInteractionRequestCallback(CheckedConsumer<String> callback){
-        if(userInteractionRequestCallbacks == null) {
+    public void registerUserInteractionRequestCallback(CheckedConsumer<String> callback) {
+        if (userInteractionRequestCallbacks == null) {
             userInteractionRequestCallbacks = new ArrayList<>();
         }
 
@@ -161,8 +159,8 @@ public abstract class ExtractorBase implements Extractor {
     }
 
     @Override
-    public void registerExtractionProgressCallback(Consumer<ExtractorResult> callback){
-        if(extractionProgressCallbacks == null) {
+    public void registerExtractionProgressCallback(Consumer<ExtractorResult> callback) {
+        if (extractionProgressCallbacks == null) {
             extractionProgressCallbacks = new ArrayList<>();
         }
 
@@ -171,7 +169,7 @@ public abstract class ExtractorBase implements Extractor {
 
     @Override
     public void clearExtractionProgressCallbacks() {
-        if(extractionProgressCallbacks == null) {
+        if (extractionProgressCallbacks == null) {
             return;
         }
 
@@ -184,36 +182,35 @@ public abstract class ExtractorBase implements Extractor {
 
     protected void raiseUserInteractionRequests(String message, ExtractorResult result) throws InterruptedException {
         Stopwatch watch = Stopwatch.createUnstarted();
-        if(result != null) {
+        if (result != null) {
             watch.start();
         }
 
-        if(userInteractionRequestCallbacks == null) {
+        if (userInteractionRequestCallbacks == null) {
             return;
         }
 
-        for(var callback : userInteractionRequestCallbacks) {
+        for (var callback : userInteractionRequestCallbacks) {
             callback.accept(message);
         }
 
-        if(result != null) {
+        if (result != null) {
             watch.stop();
             var previousDuration = result.getInterventionDuration();
-            if(previousDuration == null) {
+            if (previousDuration == null) {
                 result.setInterventionDuration(watch.elapsed());
-            }
-            else {
+            } else {
                 result.setInterventionDuration(previousDuration.plus(watch.elapsed()));
             }
         }
     }
 
     protected void raiseExtractionProgressChanged(ExtractorResult result) {
-        if(extractionProgressCallbacks == null) {
+        if (extractionProgressCallbacks == null) {
             return;
         }
 
-        for(var callback : extractionProgressCallbacks) {
+        for (var callback : extractionProgressCallbacks) {
             callback.accept(result);
         }
     }

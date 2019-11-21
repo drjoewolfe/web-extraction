@@ -71,7 +71,7 @@ public class InterventionRequestDialog extends JDialog {
 
     private void onOK() {
         int confirmation = 0;
-        if(confirmBeforeAction) {
+        if (confirmBeforeAction) {
             confirmation = JOptionPane.showConfirmDialog(this, "Confirmation assumes that you have completed all the steps / expectations listed out by this request. \n" +
                     "Are you sure you want to confirm the interaction completion ?");
         }
@@ -87,14 +87,14 @@ public class InterventionRequestDialog extends JDialog {
 
     private void onCancel() {
         int confirmation = 0;
-        if(confirmBeforeAction) {
+        if (confirmBeforeAction) {
             confirmation = JOptionPane.showConfirmDialog(this, "Are you sure you want to cancel the interaction ? \n" +
                     "The current extraction will be aborted.");
         }
 
         // 0=yes, 1=no, 2=cancel
-        if(confirmation == 0) {
-            if(requesterThread != null) {
+        if (confirmation == 0) {
+            if (requesterThread != null) {
                 requesterThread.interrupt();
             }
 

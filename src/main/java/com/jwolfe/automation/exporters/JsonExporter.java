@@ -36,7 +36,7 @@ public class JsonExporter implements Exporter {
         }
 
         Path path = Paths.get(outputFilePath);
-        if(backupExistingFile & Files.exists(path)) {
+        if (backupExistingFile & Files.exists(path)) {
             Path absolutePath = path.toAbsolutePath();
             String basePath = absolutePath.getParent().toString();
             String fileName = absolutePath.getFileName().toString();
@@ -62,13 +62,12 @@ public class JsonExporter implements Exporter {
             Path outFile = Paths.get(outputFilePath);
 
             StringBuilder fileFragment = new StringBuilder();
-            if(!Files.exists(outFile) || !appendToFile) {
+            if (!Files.exists(outFile) || !appendToFile) {
                 // Fresh file required.
                 fileFragment.append("[ ");
                 fileFragment.append(json.toString());
                 fileFragment.append(" ]");
-            }
-            else {
+            } else {
                 // File exists & need to append to existing file - Remove the last array closure ("]") & add comma (",")
                 String currentContents = new Scanner(new File(outputFilePath)).useDelimiter("\\Z").next();
                 fileFragment.append(currentContents.substring(0, currentContents.length() - 2));

@@ -17,7 +17,7 @@ public class ExtractorFactory {
     }
 
     public static ExtractorFactory getInstance() {
-        if(factoryInstance == null) {
+        if (factoryInstance == null) {
             factoryInstance = new ExtractorFactory();
         }
 
@@ -27,7 +27,7 @@ public class ExtractorFactory {
     public Extractor getExtractor(String name, AutomationConfiguration configuration) {
         Extractor instance = null;
 
-        if(extractorInstances.containsKey(name)) {
+        if (extractorInstances.containsKey(name)) {
             return extractorInstances.get(name);
         }
 

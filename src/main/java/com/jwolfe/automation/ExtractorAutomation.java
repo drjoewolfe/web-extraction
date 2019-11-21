@@ -43,13 +43,13 @@ public class ExtractorAutomation {
 
         logger.info("Record export completed");
         logger.info("Extraction took " + runSummary.getTotalExtractionTimeInSeconds() + " seconds");
-        for(var result : runSummary.getExtractorResults()) {
+        for (var result : runSummary.getExtractorResults()) {
             logger.info("Extractor: " + result.getExtractor().getName()
                     + "; Status: " + result.getRunStatus()
                     + "; # Records: " + result.getRecords().size()
                     + "; Total Duration: " + result.getTotalRunDuration().toSeconds() + " seconds"
-                    + "; Automated Time: " + (result.getAutomatedRunDuration() != null ? result.getAutomatedRunDuration().toSeconds()  + " seconds" : "-")
-                    + "; Intervention Time: " + (result.getInterventionDuration() != null ? result.getInterventionDuration().toSeconds() + " seconds" : "-" ));
+                    + "; Automated Time: " + (result.getAutomatedRunDuration() != null ? result.getAutomatedRunDuration().toSeconds() + " seconds" : "-")
+                    + "; Intervention Time: " + (result.getInterventionDuration() != null ? result.getInterventionDuration().toSeconds() + " seconds" : "-"));
         }
 
         return runSummary;
@@ -58,11 +58,11 @@ public class ExtractorAutomation {
     private void initializeRunSummaryReport(AutomationConfiguration configuration, ExtractionRunSummary runSummary) {
         var extractorFactory = ExtractorFactory.getInstance();
 
-        var extractorsToAttempt =runSummary.getExtractorsToAttempt();
-        var extractorResultMap =runSummary.getExtractorResultMap();
+        var extractorsToAttempt = runSummary.getExtractorsToAttempt();
+        var extractorResultMap = runSummary.getExtractorResultMap();
         extractorResultMap.clear();
 
-        for(String name : configuration.getExtractorNames()) {
+        for (String name : configuration.getExtractorNames()) {
             var extractor = extractorFactory.getExtractor(name, configuration);
 
             ExtractorResult extractorResult = new ExtractorResult(extractor);
@@ -73,7 +73,7 @@ public class ExtractorAutomation {
     }
 
     public void addRunSummaryUpdatedListener(RunSummaryUpdatedListener listener) {
-        if(listener == null) {
+        if (listener == null) {
             return;
         }
 
@@ -97,7 +97,7 @@ public class ExtractorAutomation {
 
         boolean threadCancelled = false;
         logger.info("Running extractors");
-        for(String name : config.getExtractorNames()) {
+        for (String name : config.getExtractorNames()) {
             var extractorResult = runSummary.getExtractorResultMap().get(name);
 
             extractor = extractorFactory.getExtractor(name, config);
@@ -111,14 +111,12 @@ public class ExtractorAutomation {
 
             extractor.run(driver, extractorResult);
 
-            if(extractorResult.getRunStatus() == RunStatus.Succeeded
-                || extractorResult.getRunStatus() == RunStatus.Partial) {
+            if (extractorResult.getRunStatus() == RunStatus.Succeeded
+                    || extractorResult.getRunStatus() == RunStatus.Partial) {
                 records.addAll(extractorResult.getRecords());
-            }
-            else if(extractorResult.getRunStatus() == RunStatus.Failed) {
+            } else if (extractorResult.getRunStatus() == RunStatus.Failed) {
                 logger.error("Encountered error while extracting " + extractor.getName() + ". Skipping & continuing.");
-            }
-            else if(extractorResult.getRunStatus() == RunStatus.Cancelled) {
+            } else if (extractorResult.getRunStatus() == RunStatus.Cancelled) {
                 logger.error("Extraction run interrupted. Cancelling extraction.");
                 threadCancelled = true;
                 break;
@@ -128,7 +126,7 @@ public class ExtractorAutomation {
             logger.info("Extractor " + extractor.getName() + " took " + durationInSeconds + " seconds");
         }
 
-        if(config.getCloseBrowserAfterExtraction()) {
+        if (config.getCloseBrowserAfterExtraction()) {
             releaseDriver();
         }
 
@@ -140,7 +138,7 @@ public class ExtractorAutomation {
                 + runSummary.getCountOfExtractorsFailed());
 
         var countOfFailedExtractors = runSummary.getCountOfExtractorsFailed();
-        if(countOfFailedExtractors > 0) {
+        if (countOfFailedExtractors > 0) {
             List<String> failedExtractorNames = runSummary.getExtractorResults().stream()
                     .filter(result -> result.getRunStatus() == RunStatus.Failed)
                     .map(result -> result.getExtractor().getName())
@@ -148,17 +146,17 @@ public class ExtractorAutomation {
             logger.info("Failed extractors: " + String.join(", ", failedExtractorNames));
         }
 
-        if(threadCancelled) {
+        if (threadCancelled) {
             throw new InterruptedException();
         }
     }
 
-    private WebDriver initializeDriver(AutomationConfiguration config){
-        if(driver != null) {
+    private WebDriver initializeDriver(AutomationConfiguration config) {
+        if (driver != null) {
             return driver;
         }
 
-        if(config.getBrowser().equals("chrome")) {
+        if (config.getBrowser().equals("chrome")) {
             driver = initializeChromeDriver();
         } else {
             driver = initializeFirefoxDriver();
@@ -205,8 +203,8 @@ public class ExtractorAutomation {
         return driver;
     }
 
-    private void releaseDriver(){
-        if(driver == null) {
+    private void releaseDriver() {
+        if (driver == null) {
             return;
         }
 
@@ -214,4 +212,3 @@ public class ExtractorAutomation {
         driver = null;
     }
 }
-
