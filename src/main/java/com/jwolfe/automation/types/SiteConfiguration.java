@@ -15,7 +15,7 @@ public class SiteConfiguration {
         return name;
     }
 
-    public void setName(String name) {
+    public void setName(final String name) {
         this.name = name;
     }
 
@@ -23,7 +23,7 @@ public class SiteConfiguration {
         return startingUrl;
     }
 
-    public void setStartingUrl(String startingUrl) {
+    public void setStartingUrl(final String startingUrl) {
         this.startingUrl = startingUrl;
     }
 
@@ -31,7 +31,7 @@ public class SiteConfiguration {
         return startingContent;
     }
 
-    public void setStartingContent(String startingContent) {
+    public void setStartingContent(final String startingContent) {
         this.startingContent = startingContent;
     }
 
@@ -39,7 +39,7 @@ public class SiteConfiguration {
         return loginUrl;
     }
 
-    public void setLoginUrl(String loginUrl) {
+    public void setLoginUrl(final String loginUrl) {
         this.loginUrl = loginUrl;
     }
 
@@ -47,7 +47,7 @@ public class SiteConfiguration {
         return portfolioUrl;
     }
 
-    public void setPortfolioUrl(String portfolioUrl) {
+    public void setPortfolioUrl(final String portfolioUrl) {
         this.portfolioUrl = portfolioUrl;
     }
 
@@ -55,7 +55,7 @@ public class SiteConfiguration {
         return userName;
     }
 
-    public void setUserName(String userName) {
+    public void setUserName(final String userName) {
         this.userName = userName;
     }
 
@@ -63,7 +63,7 @@ public class SiteConfiguration {
         return encryptedPassword;
     }
 
-    public void setEncryptedPassword(String encryptedPassword) {
+    public void setEncryptedPassword(final String encryptedPassword) {
         this.encryptedPassword = encryptedPassword;
     }
 
@@ -71,7 +71,7 @@ public class SiteConfiguration {
         return password;
     }
 
-    public void setPassword(String password) {
+    public void setPassword(final String password) {
         this.password = password;
     }
 
@@ -79,7 +79,7 @@ public class SiteConfiguration {
         return pan;
     }
 
-    public void setPan(String pan) {
+    public void setPan(final String pan) {
         this.pan = pan;
     }
 

@@ -70,13 +70,13 @@ public class YamlConfigLoader implements ConfigLoader {
     }
 
     @Override
-    public AutomationConfiguration getConfigurationFromResource(String resourcePath) {
+    public AutomationConfiguration getConfigurationFromResource(final String resourcePath) {
         var stream = ResourceHelper.getResourceAsStream(resourcePath);
         return getConfigurationFromStream(stream);
     }
 
     @Override
-    public AutomationConfiguration getConfigurationFromResource(String resourcePath, String password) {
+    public AutomationConfiguration getConfigurationFromResource(final String resourcePath, final String password) {
         AutomationConfiguration configuration = null;
         if (password == null || password.trim().equals("")) {
             configuration = getConfigurationFromResource(resourcePath);
@@ -97,7 +97,7 @@ public class YamlConfigLoader implements ConfigLoader {
         return configuration;
     }
 
-    private AutomationConfiguration getConfigurationFromStream(InputStream stream) {
+    private AutomationConfiguration getConfigurationFromStream(final InputStream stream) {
         ObjectMapper mapper = new ObjectMapper(new YAMLFactory());
         mapper.findAndRegisterModules();
 

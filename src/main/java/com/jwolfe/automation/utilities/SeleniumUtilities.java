@@ -95,7 +95,7 @@ public final class SeleniumUtilities {
         waitAndClickXPathElement(driver, elementXPath, null);
     }
 
-    public static void waitAndClickXPathElement(WebDriver driver, String elementXPath, final Function<? super WebDriver, Boolean> additionalWaitPredicate) {
+    public static void waitAndClickXPathElement(final WebDriver driver, final String elementXPath, final Function<? super WebDriver, Boolean> additionalWaitPredicate) {
         waitTillXPathElementClickable(driver, elementXPath);
         if (additionalWaitPredicate != null) {
             (new WebDriverWait(driver, 10)).until(additionalWaitPredicate);
