@@ -6,7 +6,7 @@ import com.jwolfe.automation.types.ExtractorResult;
 import com.jwolfe.automation.types.RunStatus;
 import com.jwolfe.automation.types.SiteConfiguration;
 import com.jwolfe.automation.types.records.ExtractionRecord;
-import com.jwolfe.automation.types.core.CheckedConsumer;
+import com.jwolfe.ankyl.commons.core.CheckedConsumer;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.WebDriver;

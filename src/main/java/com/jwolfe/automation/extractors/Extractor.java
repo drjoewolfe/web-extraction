@@ -1,7 +1,7 @@
 package com.jwolfe.automation.extractors;
 
 import com.jwolfe.automation.types.ExtractorResult;
-import com.jwolfe.automation.types.core.CheckedConsumer;
+import com.jwolfe.ankyl.commons.core.CheckedConsumer;
 import com.jwolfe.automation.types.records.ExtractionRecord;
 import org.openqa.selenium.WebDriver;
 

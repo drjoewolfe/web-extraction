@@ -2,7 +2,7 @@ package com.jwolfe.automation.configuration;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
-import com.jwolfe.ankyl.commons.ResourceHelper;
+import com.jwolfe.ankyl.commons.utils.ResourceHelper;
 import com.jwolfe.ankyl.crypto.AesBox;
 import com.jwolfe.automation.types.AutomationConfiguration;
 import org.apache.commons.io.FilenameUtils;
