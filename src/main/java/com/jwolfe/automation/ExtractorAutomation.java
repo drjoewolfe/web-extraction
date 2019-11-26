@@ -23,7 +23,7 @@ public class ExtractorAutomation {
 
     private static WebDriver driver;
 
-    public ExtractionRunSummary Run(AutomationConfiguration configuration) throws InterruptedException {
+    public ExtractionRunSummary Run(final AutomationConfiguration configuration) throws InterruptedException {
         logger.info("Initiating extraction run");
         ExtractionRunSummary runSummary = new ExtractionRunSummary();
         initializeRunSummaryReport(configuration, runSummary);
@@ -55,7 +55,7 @@ public class ExtractorAutomation {
         return runSummary;
     }
 
-    private void initializeRunSummaryReport(AutomationConfiguration configuration, ExtractionRunSummary runSummary) {
+    private void initializeRunSummaryReport(final AutomationConfiguration configuration, final ExtractionRunSummary runSummary) {
         var extractorFactory = ExtractorFactory.getInstance();
 
         var extractorsToAttempt = runSummary.getExtractorsToAttempt();
@@ -72,7 +72,7 @@ public class ExtractorAutomation {
         }
     }
 
-    public void addRunSummaryUpdatedListener(RunSummaryUpdatedListener listener) {
+    public void addRunSummaryUpdatedListener(final RunSummaryUpdatedListener listener) {
         if (listener == null) {
             return;
         }
@@ -80,13 +80,13 @@ public class ExtractorAutomation {
         runSummmaryUpdatedlisteners.add(listener);
     }
 
-    private void notifyRunSummaryUpdatedListeners(ExtractionRunSummary summary) {
+    private void notifyRunSummaryUpdatedListeners(final ExtractionRunSummary summary) {
         for (RunSummaryUpdatedListener listener : runSummmaryUpdatedlisteners) {
             listener.runSummaryUpdated(summary);
         }
     }
 
-    private void extractRecords(AutomationConfiguration config, ExtractionRunSummary runSummary) throws InterruptedException {
+    private void extractRecords(final AutomationConfiguration config, final ExtractionRunSummary runSummary) throws InterruptedException {
         var records = runSummary.getExtract().getRecords();
 
         logger.info("Launching browser");
@@ -151,7 +151,7 @@ public class ExtractorAutomation {
         }
     }
 
-    private WebDriver initializeDriver(AutomationConfiguration config) {
+    private WebDriver initializeDriver(final AutomationConfiguration config) {
         if (driver != null) {
             return driver;
         }
