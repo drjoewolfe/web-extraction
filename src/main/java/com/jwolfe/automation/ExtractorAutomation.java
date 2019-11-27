@@ -153,11 +153,16 @@ public class ExtractorAutomation {
     }
 
     private WebDriver initializeDriver(final AutomationConfiguration config) {
+        boolean chromeRequested = config.getBrowser().equals("chrome");
+
         if (driver != null && !isBrowserClosed(driver)) {
-            return driver;
+            if ((chromeRequested && (driver instanceof ChromeDriver))
+                    || (!chromeRequested && !(driver instanceof ChromeDriver))) {
+                return driver;
+            }
         }
 
-        if (config.getBrowser().equals("chrome")) {
+        if (chromeRequested) {
             driver = initializeChromeDriver();
         } else {
             driver = initializeFirefoxDriver();
