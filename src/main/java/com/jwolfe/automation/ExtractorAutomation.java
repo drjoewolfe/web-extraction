@@ -160,6 +160,10 @@ public class ExtractorAutomation {
                     || (!chromeRequested && !(driver instanceof ChromeDriver))) {
                 return driver;
             }
+            else {
+                // There is a browser open, which is not what is selected
+                releaseDriver();
+            }
         }
 
         if (chromeRequested) {
