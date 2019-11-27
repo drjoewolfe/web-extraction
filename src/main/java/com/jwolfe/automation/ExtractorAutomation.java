@@ -6,11 +6,12 @@ import com.jwolfe.automation.extractors.ExtractorFactory;
 import com.jwolfe.automation.types.*;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxOptions;
+import org.openqa.selenium.remote.*;
 
 import java.util.*;
 import java.util.concurrent.TimeUnit;
@@ -152,7 +153,7 @@ public class ExtractorAutomation {
     }
 
     private WebDriver initializeDriver(final AutomationConfiguration config) {
-        if (driver != null) {
+        if (driver != null && !isBrowserClosed(driver)) {
             return driver;
         }
 
@@ -210,5 +211,16 @@ public class ExtractorAutomation {
 
         driver.quit();
         driver = null;
+    }
+
+    private boolean isBrowserClosed(final WebDriver driver) {
+        boolean isClosed = false;
+        try {
+            driver.getTitle();
+        } catch (WebDriverException wde) {
+            isClosed = true;
+        }
+
+        return isClosed;
     }
 }
