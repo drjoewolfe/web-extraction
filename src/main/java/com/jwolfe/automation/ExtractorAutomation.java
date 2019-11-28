@@ -153,15 +153,18 @@ public class ExtractorAutomation {
     }
 
     private WebDriver initializeDriver(final AutomationConfiguration config) {
+        logger.info("Browser selection is " + config.getBrowser());
         boolean chromeRequested = config.getBrowser().equals("chrome");
 
         if (driver != null && !isBrowserClosed(driver)) {
             if ((chromeRequested && (driver instanceof ChromeDriver))
                     || (!chromeRequested && !(driver instanceof ChromeDriver))) {
+                logger.info("Browser already launched - reusing");
                 return driver;
             }
             else {
                 // There is a browser open, which is not what is selected
+                logger.info("Closing already launched browser as it is not the selected type");
                 releaseDriver();
             }
         }
@@ -176,6 +179,7 @@ public class ExtractorAutomation {
     }
 
     private WebDriver initializeFirefoxDriver() {
+        logger.info("Initializing Firefox");
         System.setProperty("webdriver.gecko.driver",
                 "/home/apput/Desktop/dev/jw/jars/geckodriver");
 
@@ -184,10 +188,12 @@ public class ExtractorAutomation {
         WebDriver driver = new FirefoxDriver(options);
         driver.manage().window().maximize();
 
+        logger.info("Firefox launched");
         return driver;
     }
 
     private WebDriver initializeChromeDriver() {
+        logger.info("Initializing Chrome");
         System.setProperty("webdriver.chrome.driver",
                 "/home/apput/Desktop/dev/jw/jars/chromedriver");
 
@@ -210,6 +216,7 @@ public class ExtractorAutomation {
         driver.manage().window().maximize();
         driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
 
+        logger.info("Chrome launched");
         return driver;
     }
 
