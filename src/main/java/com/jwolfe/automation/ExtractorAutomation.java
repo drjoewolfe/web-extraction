@@ -170,53 +170,15 @@ public class ExtractorAutomation {
         }
 
         if (chromeRequested) {
-            driver = initializeChromeDriver();
+            logger.info("Initializing Chrome");
+            driver = config.getBrowserDriverOptions().getChromeDriver();
+            logger.info("Chrome launched");
         } else {
-            driver = initializeFirefoxDriver();
+            logger.info("Initializing Firefox");
+            driver = config.getBrowserDriverOptions().getFirefoxDriver();
+            logger.info("Firefox launched");
         }
 
-        return driver;
-    }
-
-    private WebDriver initializeFirefoxDriver() {
-        logger.info("Initializing Firefox");
-        System.setProperty("webdriver.gecko.driver",
-                "/home/apput/Desktop/dev/jw/jars/geckodriver");
-
-        FirefoxOptions options = new FirefoxOptions();
-        options.addPreference("dom.webnotifications.enabled", false);
-        WebDriver driver = new FirefoxDriver(options);
-        driver.manage().window().maximize();
-
-        logger.info("Firefox launched");
-        return driver;
-    }
-
-    private WebDriver initializeChromeDriver() {
-        logger.info("Initializing Chrome");
-        System.setProperty("webdriver.chrome.driver",
-                "/home/apput/Desktop/dev/jw/jars/chromedriver");
-
-        Map<String, Object> prefs = new HashMap<>();
-        prefs.put("profile.default_content_setting_values.notifications", 2);
-//        prefs.put("credentials_enable_service", true);
-//        prefs.put("profile.password_manager_enabled", true);
-
-        ChromeOptions options = new ChromeOptions();
-        options.addArguments("user-data-dir=/home/apput/.config/google-chrome/");
-        options.setExperimentalOption("prefs", prefs);
-//        options.setExperimentalOption("w3c", true);
-//        options.addArguments("--no-sandbox");
-        options.addArguments("start-maximized");
-        options.addArguments("--disable-extensions");
-        options.addArguments("--disable-notifications");
-        // options.addArguments("--disable-popup-blocking");
-
-        WebDriver driver = new ChromeDriver(options);
-        driver.manage().window().maximize();
-        driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
-
-        logger.info("Chrome launched");
         return driver;
     }
 

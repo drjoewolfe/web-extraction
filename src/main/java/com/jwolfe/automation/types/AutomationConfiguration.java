@@ -1,5 +1,7 @@
 package com.jwolfe.automation.types;
 
+import com.fasterxml.jackson.annotation.*;
+
 import java.util.List;
 
 public class AutomationConfiguration {
@@ -14,6 +16,9 @@ public class AutomationConfiguration {
     private boolean backupExistingFile;
 
     private String browser;
+
+    @JsonIgnore
+    private BrowserDriverOptions browserDriverOptions;
 
     private Boolean logoutAfterExtraction;
 
@@ -67,6 +72,14 @@ public class AutomationConfiguration {
         this.browser = browser;
     }
 
+    public BrowserDriverOptions getBrowserDriverOptions() {
+        return browserDriverOptions;
+    }
+
+    public void setBrowserDriverOptions(BrowserDriverOptions browserDriverOptions) {
+        this.browserDriverOptions = browserDriverOptions;
+    }
+
     public Boolean getLogoutAfterExtraction() {
         return logoutAfterExtraction;
     }
@@ -84,7 +97,7 @@ public class AutomationConfiguration {
     }
 
     public AutomationConfiguration() {
-
+        this.browserDriverOptions = new BrowserDriverOptions();
     }
 
     public SiteConfiguration getSiteConfiguration(final String name) {
