@@ -13,6 +13,16 @@ public class BrowserSettingsDialog extends JDialog {
     private JTextField chromeUserDataDirectoryTextField;
     private JTextField firefoxDriverLocationTextField;
 
+    private AutomationConfiguration config;
+
+    public AutomationConfiguration getConfig() {
+        return config;
+    }
+
+    public void setConfig(AutomationConfiguration config) {
+        this.config = config;
+    }
+
     public BrowserSettingsDialog() {
         setContentPane(contentPane);
         setModal(true);
@@ -48,36 +58,55 @@ public class BrowserSettingsDialog extends JDialog {
 
     public void show(AutomationConfiguration config) {
         setSize(500, 400);
-        updateConfigurationFields(config);
+
+        setConfig(config);
+        updateFieldsFromConfig();
 
         setVisible(true);
     }
 
-    private void updateConfigurationFields(AutomationConfiguration config) {
-        updateChromeConfigurationFields(config);
-        updateFirefoxConfigurationFields(config);
+    private void updateFieldsFromConfig() {
+        updateChromeFieldsFromConfig();
+        updateFirefoxFieldsFromConfig();
     }
 
-    private void updateChromeConfigurationFields(AutomationConfiguration config) {
+    private void updateChromeFieldsFromConfig() {
         var browserDriverOptions = config.getBrowserDriverOptions();
 
         chromeDriverLocationTextField.setText(browserDriverOptions.getChromeDriverLocation());
         chromeUserDataDirectoryTextField.setText(browserDriverOptions.getChromeUserDataDirectory());
     }
 
-    private void updateFirefoxConfigurationFields(AutomationConfiguration config) {
+    private void updateFirefoxFieldsFromConfig() {
         var browserDriverOptions = config.getBrowserDriverOptions();
 
         firefoxDriverLocationTextField.setText(browserDriverOptions.getFirefoxDriverLocation());
     }
 
+    private void updateConfigFromFields() {
+        updateChromeConfigFromFields();
+        updateFirefoxConfigFromFields();
+    }
+
+    private void updateChromeConfigFromFields() {
+        var browserDriverOptions = config.getBrowserDriverOptions();
+
+        browserDriverOptions.setChromeDriverLocation(chromeDriverLocationTextField.getText());
+        browserDriverOptions.setChromeUserDataDirectory(chromeUserDataDirectoryTextField.getText());
+    }
+
+    private void updateFirefoxConfigFromFields() {
+        var browserDriverOptions = config.getBrowserDriverOptions();
+
+        browserDriverOptions.setFirefoxDriverLocation(firefoxDriverLocationTextField.getText());
+    }
+
     private void onOK() {
-        // add your code here
+        updateConfigFromFields();
         dispose();
     }
 
     private void onCancel() {
-        // add your code here if necessary
         dispose();
     }
 }
