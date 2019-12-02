@@ -17,7 +17,6 @@ public class AutomationConfiguration {
 
     private String browser;
 
-    @JsonIgnore
     private BrowserDriverOptions browserDriverOptions;
 
     private Boolean logoutAfterExtraction;

@@ -230,7 +230,7 @@ public class BrowserDriverOptions {
     }
 
     public BrowserDriverOptions() {
-        loadDefaultOptions();
+        // loadDefaultOptions();
     }
 
     private void loadDefaultOptions() {
