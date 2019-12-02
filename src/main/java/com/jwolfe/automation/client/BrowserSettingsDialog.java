@@ -12,6 +12,17 @@ public class BrowserSettingsDialog extends JDialog {
     private JTextField chromeDriverLocationTextField;
     private JTextField chromeUserDataDirectoryTextField;
     private JTextField firefoxDriverLocationTextField;
+    private JCheckBox chromeStartMaximizedCheckBox;
+    private JCheckBox chromeDisableExtensionsCheckBox;
+    private JCheckBox chromeDisableNotificationsCheckBox;
+    private JCheckBox chromeDisablePopUpBlockingCheckBox;
+    private JCheckBox chromeEnableCredentialsServiceCheckBox;
+    private JCheckBox chromeEnablePasswordManagerCheckBox;
+    private JCheckBox chromeEnableW3CCheckBox;
+    private JCheckBox chromeNoSandboxCheckBox;
+    private JTextField chromeImplicitTimeoutTextField;
+    private JCheckBox firefoxStartMaximizedCheckBox;
+    private JCheckBox firefoxDisableNotificationsCheckBox;
 
     private AutomationConfiguration config;
 
@@ -57,7 +68,7 @@ public class BrowserSettingsDialog extends JDialog {
     }
 
     public void show(AutomationConfiguration config) {
-        setSize(500, 400);
+        setSize(500, 500);
 
         setConfig(config);
         updateFieldsFromConfig();
@@ -75,12 +86,26 @@ public class BrowserSettingsDialog extends JDialog {
 
         chromeDriverLocationTextField.setText(browserDriverOptions.getChromeDriverLocation());
         chromeUserDataDirectoryTextField.setText(browserDriverOptions.getChromeUserDataDirectory());
+
+        chromeStartMaximizedCheckBox.setSelected(browserDriverOptions.isChromeStartMaximized());
+        chromeDisableExtensionsCheckBox.setSelected(browserDriverOptions.isChromeDisableExtensions());
+        chromeDisableNotificationsCheckBox.setSelected(browserDriverOptions.isChromeDisableNotifications());
+        chromeDisablePopUpBlockingCheckBox.setSelected(browserDriverOptions.isChromeDisablePopupBlocking());
+        chromeEnableCredentialsServiceCheckBox.setSelected(browserDriverOptions.isChromeCredentialsServiceEnabled());
+        chromeEnablePasswordManagerCheckBox.setSelected(browserDriverOptions.isChromePasswordManagerEnabled());
+        chromeEnableW3CCheckBox.setSelected(browserDriverOptions.isChromeW3CEnabled());
+        chromeNoSandboxCheckBox.setSelected(browserDriverOptions.isChromeNoSandbox());
+
+        chromeImplicitTimeoutTextField.setText(String.valueOf(browserDriverOptions.getChromeImplicitTimeout()));
     }
 
     private void updateFirefoxFieldsFromConfig() {
         var browserDriverOptions = config.getBrowserDriverOptions();
 
         firefoxDriverLocationTextField.setText(browserDriverOptions.getFirefoxDriverLocation());
+
+        firefoxStartMaximizedCheckBox.setSelected(browserDriverOptions.isFirefoxStartMaximized());
+        firefoxDisableNotificationsCheckBox.setSelected(browserDriverOptions.isFirefoxDisableNotifications());
     }
 
     private void updateConfigFromFields() {
@@ -93,12 +118,29 @@ public class BrowserSettingsDialog extends JDialog {
 
         browserDriverOptions.setChromeDriverLocation(chromeDriverLocationTextField.getText());
         browserDriverOptions.setChromeUserDataDirectory(chromeUserDataDirectoryTextField.getText());
+
+        browserDriverOptions.setChromeStartMaximized(chromeStartMaximizedCheckBox.isSelected());
+        browserDriverOptions.setChromeDisableExtensions(chromeDisableExtensionsCheckBox.isSelected());
+        browserDriverOptions.setChromeDisableNotifications(chromeDisableNotificationsCheckBox.isSelected());
+        browserDriverOptions.setChromeDisablePopupBlocking(chromeDisablePopUpBlockingCheckBox.isSelected());
+        browserDriverOptions.setChromeCredentialsServiceEnabled(chromeEnableCredentialsServiceCheckBox.isSelected());
+        browserDriverOptions.setChromePasswordManagerEnabled(chromeEnablePasswordManagerCheckBox.isSelected());
+        browserDriverOptions.setChromeW3CEnabled(chromeEnableW3CCheckBox.isSelected());
+        browserDriverOptions.setChromeNoSandbox(chromeNoSandboxCheckBox.isSelected());
+
+        browserDriverOptions.setChromeImplicitTimeout(Integer.valueOf(chromeImplicitTimeoutTextField.getText()));
     }
 
     private void updateFirefoxConfigFromFields() {
         var browserDriverOptions = config.getBrowserDriverOptions();
 
         browserDriverOptions.setFirefoxDriverLocation(firefoxDriverLocationTextField.getText());
+
+        firefoxStartMaximizedCheckBox.setEnabled(browserDriverOptions.isFirefoxStartMaximized());
+        firefoxDisableNotificationsCheckBox.setEnabled(browserDriverOptions.isFirefoxDisableNotifications());
+
+        browserDriverOptions.setFirefoxStartMaximized(firefoxStartMaximizedCheckBox.isSelected());
+        browserDriverOptions.setFirefoxDisableNotifications(firefoxDisableNotificationsCheckBox.isSelected());
     }
 
     private void onOK() {

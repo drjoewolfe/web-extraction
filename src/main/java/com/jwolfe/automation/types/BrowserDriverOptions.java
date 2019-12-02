@@ -22,7 +22,7 @@ public class BrowserDriverOptions {
 
     private String firefoxDriverLocation;
     private boolean firefoxStartMaximized;
-    private boolean firefoxWebNotificationsEnabled;
+    private boolean firefoxDisableNotifications;
 
 
     public String getChromeDriverLocation() {
@@ -129,12 +129,12 @@ public class BrowserDriverOptions {
         this.firefoxStartMaximized = firefoxStartMaximized;
     }
 
-    public boolean isFirefoxWebNotificationsEnabled() {
-        return firefoxWebNotificationsEnabled;
+    public boolean isFirefoxDisableNotifications() {
+        return firefoxDisableNotifications;
     }
 
-    public void setFirefoxWebNotificationsEnabled(boolean firefoxWebNotificationsEnabled) {
-        this.firefoxWebNotificationsEnabled = firefoxWebNotificationsEnabled;
+    public void setFirefoxDisableNotifications(boolean firefoxDisableNotifications) {
+        this.firefoxDisableNotifications = firefoxDisableNotifications;
     }
 
     public ChromeOptions getChromeOptions() {
@@ -186,10 +186,10 @@ public class BrowserDriverOptions {
     public FirefoxOptions getFirefoxOptions() {
         FirefoxOptions options = new FirefoxOptions();
 
-        if(isFirefoxWebNotificationsEnabled()) {
-            options.addPreference("dom.webnotifications.enabled", true);
-        } else {
+        if(isFirefoxDisableNotifications()) {
             options.addPreference("dom.webnotifications.enabled", false);
+        } else {
+            options.addPreference("dom.webnotifications.enabled", true);
         }
 
         return options;
@@ -252,6 +252,6 @@ public class BrowserDriverOptions {
 
     private void loadDefaultFirefoxOptions() {
         setFirefoxStartMaximized(true);
-        setFirefoxWebNotificationsEnabled(false);
+        setFirefoxDisableNotifications(true);
     }
 }

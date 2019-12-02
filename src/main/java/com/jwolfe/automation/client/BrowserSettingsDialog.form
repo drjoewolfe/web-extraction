@@ -3,7 +3,7 @@
   <grid id="cbd77" binding="contentPane" layout-manager="GridLayoutManager" row-count="2" column-count="2" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
     <margin top="10" left="10" bottom="10" right="10"/>
     <constraints>
-      <xy x="48" y="54" width="601" height="297"/>
+      <xy x="48" y="54" width="601" height="441"/>
     </constraints>
     <properties/>
     <border type="none"/>
@@ -109,7 +109,7 @@
           </component>
           <component id="4885b" class="javax.swing.JLabel">
             <constraints>
-              <grid row="3" column="0" row-span="1" col-span="2" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+              <grid row="12" column="0" row-span="1" col-span="2" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
               <gridbag top="10" left="0" bottom="0" right="0" weightx="0.0" weighty="0.0"/>
             </constraints>
             <properties>
@@ -119,7 +119,7 @@
           </component>
           <component id="3b5a" class="javax.swing.JLabel">
             <constraints>
-              <grid row="4" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+              <grid row="13" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
               <gridbag top="3" left="5" bottom="0" right="0" weightx="0.0" weighty="0.0"/>
             </constraints>
             <properties>
@@ -128,7 +128,7 @@
           </component>
           <component id="bedc8" class="javax.swing.JTextField" binding="firefoxDriverLocationTextField">
             <constraints>
-              <grid row="4" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+              <grid row="13" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
                 <preferred-size width="150" height="-1"/>
               </grid>
               <gridbag top="3" left="3" bottom="0" right="0" weightx="1.0" weighty="0.0"/>
@@ -136,6 +136,116 @@
             <properties>
               <columns value="0"/>
               <text value="/home/apput/Desktop/dev/jw/jars/geckodriver"/>
+            </properties>
+          </component>
+          <component id="71fb5" class="javax.swing.JCheckBox" binding="chromeStartMaximizedCheckBox">
+            <constraints>
+              <grid row="3" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+              <gridbag weightx="0.0" weighty="0.0"/>
+            </constraints>
+            <properties>
+              <text value="Start Maximized"/>
+            </properties>
+          </component>
+          <component id="26a58" class="javax.swing.JCheckBox" binding="chromeDisableExtensionsCheckBox">
+            <constraints>
+              <grid row="4" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+              <gridbag weightx="0.0" weighty="0.0"/>
+            </constraints>
+            <properties>
+              <text value="Disable Extensions"/>
+            </properties>
+          </component>
+          <component id="1c989" class="javax.swing.JCheckBox" binding="chromeDisableNotificationsCheckBox">
+            <constraints>
+              <grid row="5" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+              <gridbag weightx="0.0" weighty="0.0"/>
+            </constraints>
+            <properties>
+              <text value="Disable Notifications"/>
+            </properties>
+          </component>
+          <component id="680fc" class="javax.swing.JCheckBox" binding="chromeDisablePopUpBlockingCheckBox">
+            <constraints>
+              <grid row="6" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+              <gridbag weightx="0.0" weighty="0.0"/>
+            </constraints>
+            <properties>
+              <text value="Disable Pop-up Blocking"/>
+            </properties>
+          </component>
+          <component id="6fd0c" class="javax.swing.JCheckBox" binding="chromeEnableCredentialsServiceCheckBox">
+            <constraints>
+              <grid row="7" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+              <gridbag weightx="0.0" weighty="0.0"/>
+            </constraints>
+            <properties>
+              <text value="Enable Credentials Service"/>
+            </properties>
+          </component>
+          <component id="7883b" class="javax.swing.JCheckBox" binding="chromeEnablePasswordManagerCheckBox">
+            <constraints>
+              <grid row="8" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+              <gridbag weightx="0.0" weighty="0.0"/>
+            </constraints>
+            <properties>
+              <text value="Enable Password Manager"/>
+            </properties>
+          </component>
+          <component id="cb74c" class="javax.swing.JCheckBox" binding="chromeEnableW3CCheckBox">
+            <constraints>
+              <grid row="9" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+              <gridbag weightx="0.0" weighty="0.0"/>
+            </constraints>
+            <properties>
+              <text value="Enable W3C"/>
+            </properties>
+          </component>
+          <component id="b86c3" class="javax.swing.JCheckBox" binding="chromeNoSandboxCheckBox">
+            <constraints>
+              <grid row="10" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+              <gridbag weightx="0.0" weighty="0.0"/>
+            </constraints>
+            <properties>
+              <text value="No Sandbox"/>
+            </properties>
+          </component>
+          <component id="f2f0c" class="javax.swing.JLabel">
+            <constraints>
+              <grid row="11" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+              <gridbag top="3" left="5" bottom="0" right="0" weightx="0.0" weighty="0.0"/>
+            </constraints>
+            <properties>
+              <text value="Implicit Timeout (seconds): "/>
+            </properties>
+          </component>
+          <component id="67378" class="javax.swing.JTextField" binding="chromeImplicitTimeoutTextField">
+            <constraints>
+              <grid row="11" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                <preferred-size width="150" height="-1"/>
+              </grid>
+              <gridbag top="3" left="3" bottom="0" right="0" weightx="1.0" weighty="0.0"/>
+            </constraints>
+            <properties>
+              <text value="20"/>
+            </properties>
+          </component>
+          <component id="8e34" class="javax.swing.JCheckBox" binding="firefoxStartMaximizedCheckBox">
+            <constraints>
+              <grid row="14" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+              <gridbag weightx="0.0" weighty="0.0"/>
+            </constraints>
+            <properties>
+              <text value="Start Maximized"/>
+            </properties>
+          </component>
+          <component id="ae6bb" class="javax.swing.JCheckBox" binding="firefoxDisableNotificationsCheckBox">
+            <constraints>
+              <grid row="15" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+              <gridbag weightx="0.0" weighty="0.0"/>
+            </constraints>
+            <properties>
+              <text value="Disable Notifications"/>
             </properties>
           </component>
         </children>
