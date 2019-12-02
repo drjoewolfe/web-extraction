@@ -1,9 +1,19 @@
 package com.jwolfe.automation.client;
 
-import com.jwolfe.automation.types.*;
+import com.jwolfe.automation.types.AutomationConfiguration;
 
-import javax.swing.*;
-import java.awt.event.*;
+import javax.swing.JButton;
+import javax.swing.JCheckBox;
+import javax.swing.JComponent;
+import javax.swing.JDialog;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+import javax.swing.KeyStroke;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 public class BrowserSettingsDialog extends JDialog {
     private JPanel contentPane;

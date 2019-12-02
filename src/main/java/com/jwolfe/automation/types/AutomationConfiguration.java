@@ -1,7 +1,5 @@
 package com.jwolfe.automation.types;
 
-import com.fasterxml.jackson.annotation.*;
-
 import java.util.List;
 
 public class AutomationConfiguration {
