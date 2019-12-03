@@ -161,8 +161,7 @@ public class ExtractorAutomation {
                     || (!chromeRequested && !(driver instanceof ChromeDriver))) {
                 logger.info("Browser already launched - reusing");
                 return driver;
-            }
-            else {
+            } else {
                 // There is a browser open, which is not what is selected
                 logger.info("Closing already launched browser as it is not the selected type");
                 releaseDriver();
