@@ -7,13 +7,16 @@ import com.jwolfe.automation.types.RunStatus;
 import com.jwolfe.automation.types.SiteConfiguration;
 import com.jwolfe.automation.types.records.ExtractionRecord;
 import com.jwolfe.ankyl.commons.core.CheckedConsumer;
+import com.jwolfe.automation.utilities.SeleniumUtilities;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
 import java.io.InterruptedIOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.Callable;
 import java.util.function.Consumer;
 
 public abstract class ExtractorBase implements Extractor {
@@ -213,5 +216,24 @@ public abstract class ExtractorBase implements Extractor {
         for (var callback : extractionProgressCallbacks) {
             callback.accept(result);
         }
+    }
+
+    protected void executeOptionalStep(Runnable r, ExtractorResult result, String failedMessage) {
+        try {
+            if (r != null) {
+                r.run();
+            }
+        } catch (Exception ex) {
+            if (failedMessage != null) {
+                logger.warn(failedMessage);
+            }
+
+            logger.warn("Optional step failed. Marking as partial success.");
+            result.setRunStatus(RunStatus.Partial);
+        }
+    }
+
+    protected void executeLogoutStep(Runnable logoutRunnable, ExtractorResult result) {
+        executeOptionalStep(logoutRunnable, result, "Logout failed");
     }
 }
