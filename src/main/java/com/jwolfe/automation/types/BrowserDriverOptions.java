@@ -72,7 +72,7 @@ public class BrowserDriverOptions {
         return chromeDisablePopupBlocking;
     }
 
-    public void setChromeDisablePopupBlocking(boolean chromeDisablePopupBlocking) {
+    public void setChromeDisablePopupBlocking(final boolean chromeDisablePopupBlocking) {
         this.chromeDisablePopupBlocking = chromeDisablePopupBlocking;
     }
 
@@ -80,7 +80,7 @@ public class BrowserDriverOptions {
         return chromeNoSandbox;
     }
 
-    public void setChromeNoSandbox(boolean chromeNoSandbox) {
+    public void setChromeNoSandbox(final boolean chromeNoSandbox) {
         this.chromeNoSandbox = chromeNoSandbox;
     }
 
@@ -88,7 +88,7 @@ public class BrowserDriverOptions {
         return chromeW3CEnabled;
     }
 
-    public void setChromeW3CEnabled(boolean chromeW3CEnabled) {
+    public void setChromeW3CEnabled(final boolean chromeW3CEnabled) {
         this.chromeW3CEnabled = chromeW3CEnabled;
     }
 
@@ -96,7 +96,7 @@ public class BrowserDriverOptions {
         return chromeCredentialsServiceEnabled;
     }
 
-    public void setChromeCredentialsServiceEnabled(boolean chromeCredentialsServiceEnabled) {
+    public void setChromeCredentialsServiceEnabled(final boolean chromeCredentialsServiceEnabled) {
         this.chromeCredentialsServiceEnabled = chromeCredentialsServiceEnabled;
     }
 
@@ -104,7 +104,7 @@ public class BrowserDriverOptions {
         return chromePasswordManagerEnabled;
     }
 
-    public void setChromePasswordManagerEnabled(boolean chromePasswordManagerEnabled) {
+    public void setChromePasswordManagerEnabled(final boolean chromePasswordManagerEnabled) {
         this.chromePasswordManagerEnabled = chromePasswordManagerEnabled;
     }
 
@@ -112,7 +112,7 @@ public class BrowserDriverOptions {
         return chromeImplicitTimeout;
     }
 
-    public void setChromeImplicitTimeout(int chromeImplicitTimeout) {
+    public void setChromeImplicitTimeout(final int chromeImplicitTimeout) {
         this.chromeImplicitTimeout = chromeImplicitTimeout;
     }
 
@@ -120,7 +120,7 @@ public class BrowserDriverOptions {
         return firefoxDriverLocation;
     }
 
-    public void setFirefoxDriverLocation(String firefoxDriverLocation) {
+    public void setFirefoxDriverLocation(final String firefoxDriverLocation) {
         this.firefoxDriverLocation = firefoxDriverLocation;
     }
 
@@ -128,7 +128,7 @@ public class BrowserDriverOptions {
         return firefoxStartMaximized;
     }
 
-    public void setFirefoxStartMaximized(boolean firefoxStartMaximized) {
+    public void setFirefoxStartMaximized(final boolean firefoxStartMaximized) {
         this.firefoxStartMaximized = firefoxStartMaximized;
     }
 
@@ -136,7 +136,7 @@ public class BrowserDriverOptions {
         return firefoxDisableNotifications;
     }
 
-    public void setFirefoxDisableNotifications(boolean firefoxDisableNotifications) {
+    public void setFirefoxDisableNotifications(final boolean firefoxDisableNotifications) {
         this.firefoxDisableNotifications = firefoxDisableNotifications;
     }
 
@@ -144,42 +144,42 @@ public class BrowserDriverOptions {
         Map<String, Object> prefs = new HashMap<>();
         prefs.put("profile.default_content_setting_values.notifications", 2);
 
-        if(isChromeCredentialsServiceEnabled()) {
+        if (isChromeCredentialsServiceEnabled()) {
             prefs.put("credentials_enable_service", true);
         }
 
-        if(isChromePasswordManagerEnabled()) {
+        if (isChromePasswordManagerEnabled()) {
             prefs.put("profile.password_manager_enabled", true);
         }
 
         ChromeOptions options = new ChromeOptions();
         options.setExperimentalOption("prefs", prefs);
 
-        if(getChromeUserDataDirectory() != null) {
+        if (getChromeUserDataDirectory() != null) {
             options.addArguments(getChromeUserDataDirectory());
         }
 
-        if(isChromeW3CEnabled()) {
+        if (isChromeW3CEnabled()) {
             options.setExperimentalOption("w3c", true);
         }
 
-        if(isChromeNoSandbox()) {
+        if (isChromeNoSandbox()) {
             options.addArguments("--no-sandbox");
         }
 
-        if(isChromeStartMaximized()) {
+        if (isChromeStartMaximized()) {
             options.addArguments("start-maximized");
         }
 
-        if(isChromeDisableExtensions()) {
+        if (isChromeDisableExtensions()) {
             options.addArguments("--disable-extensions");
         }
 
-        if(isChromeDisableNotifications()) {
+        if (isChromeDisableNotifications()) {
             options.addArguments("--disable-notifications");
         }
 
-        if(isChromeDisableNotifications()) {
+        if (isChromeDisableNotifications()) {
             options.addArguments("--disable-popup-blocking");
         }
 
@@ -189,7 +189,7 @@ public class BrowserDriverOptions {
     public FirefoxOptions getFirefoxOptions() {
         FirefoxOptions options = new FirefoxOptions();
 
-        if(isFirefoxDisableNotifications()) {
+        if (isFirefoxDisableNotifications()) {
             options.addPreference("dom.webnotifications.enabled", false);
         } else {
             options.addPreference("dom.webnotifications.enabled", true);
@@ -199,7 +199,7 @@ public class BrowserDriverOptions {
     }
 
     public WebDriver getFirefoxDriver() {
-        if(getFirefoxDriverLocation() != null) {
+        if (getFirefoxDriverLocation() != null) {
             System.setProperty("webdriver.gecko.driver",
                     getFirefoxDriverLocation());
         }
@@ -207,7 +207,7 @@ public class BrowserDriverOptions {
         var options = getFirefoxOptions();
         WebDriver driver = new FirefoxDriver(options);
 
-        if(isFirefoxStartMaximized()) {
+        if (isFirefoxStartMaximized()) {
             driver.manage().window().maximize();
         }
 
@@ -215,7 +215,7 @@ public class BrowserDriverOptions {
     }
 
     public WebDriver getChromeDriver() {
-        if(getChromeDriverLocation() != null) {
+        if (getChromeDriverLocation() != null) {
             System.setProperty("webdriver.chrome.driver",
                     getChromeDriverLocation());
         }
@@ -223,7 +223,7 @@ public class BrowserDriverOptions {
         var options = getChromeOptions();
         WebDriver driver = new ChromeDriver(options);
 
-        if(chromeStartMaximized) {
+        if (chromeStartMaximized) {
             driver.manage().window().maximize();
         }
 

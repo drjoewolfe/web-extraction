@@ -33,7 +33,7 @@ public class AutomationConfiguration {
         return extractorNames;
     }
 
-    public void setExtractorNames(List<String> extractorNames) {
+    public void setExtractorNames(final List<String> extractorNames) {
         this.extractorNames = extractorNames;
     }
 
@@ -41,7 +41,7 @@ public class AutomationConfiguration {
         return outputFilePath;
     }
 
-    public void setOutputFilePath(String outputFilePath) {
+    public void setOutputFilePath(final String outputFilePath) {
         this.outputFilePath = outputFilePath;
     }
 
@@ -49,7 +49,7 @@ public class AutomationConfiguration {
         return appendToFile;
     }
 
-    public void setAppendToFile(boolean appendToFile) {
+    public void setAppendToFile(final boolean appendToFile) {
         this.appendToFile = appendToFile;
     }
 
@@ -57,7 +57,7 @@ public class AutomationConfiguration {
         return backupExistingFile;
     }
 
-    public void setBackupExistingFile(boolean backupExistingFile) {
+    public void setBackupExistingFile(final boolean backupExistingFile) {
         this.backupExistingFile = backupExistingFile;
     }
 
@@ -65,7 +65,7 @@ public class AutomationConfiguration {
         return browser;
     }
 
-    public void setBrowser(String browser) {
+    public void setBrowser(final String browser) {
         this.browser = browser;
     }
 
@@ -81,7 +81,7 @@ public class AutomationConfiguration {
         return logoutAfterExtraction;
     }
 
-    public void setLogoutAfterExtraction(Boolean logoutAfterExtraction) {
+    public void setLogoutAfterExtraction(final Boolean logoutAfterExtraction) {
         this.logoutAfterExtraction = logoutAfterExtraction;
     }
 
@@ -89,7 +89,7 @@ public class AutomationConfiguration {
         return closeBrowserAfterExtraction;
     }
 
-    public void setCloseBrowserAfterExtraction(Boolean closeBrowserAfterExtraction) {
+    public void setCloseBrowserAfterExtraction(final Boolean closeBrowserAfterExtraction) {
         this.closeBrowserAfterExtraction = closeBrowserAfterExtraction;
     }
 

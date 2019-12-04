@@ -3,8 +3,20 @@ package com.jwolfe.automation.client;
 import com.jwolfe.automation.configuration.YamlConfigLoader;
 import com.jwolfe.automation.types.AutomationConfiguration;
 
-import javax.swing.*;
-import java.awt.event.*;
+import javax.swing.JButton;
+import javax.swing.JComponent;
+import javax.swing.JDialog;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JPasswordField;
+import javax.swing.KeyStroke;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+
 
 public class ExtractProtectedConfigurationDialog extends JDialog {
     private JPanel contentPane;
@@ -32,13 +44,13 @@ public class ExtractProtectedConfigurationDialog extends JDialog {
 
         setTitle("Protected Configuration");
         buttonOK.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
+            public void actionPerformed(final ActionEvent e) {
                 onOK();
             }
         });
 
         buttonCancel.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
+            public void actionPerformed(final ActionEvent e) {
                 onCancel();
             }
         });
@@ -53,13 +65,13 @@ public class ExtractProtectedConfigurationDialog extends JDialog {
 
         // call onCancel() on ESCAPE
         contentPane.registerKeyboardAction(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
+            public void actionPerformed(final ActionEvent e) {
                 onCancel();
             }
         }, KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
     }
 
-    public void show(String configFilePath) {
+    public void show(final String configFilePath) {
         this.configFilePath = configFilePath;
 
 
