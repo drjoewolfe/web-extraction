@@ -1,6 +1,5 @@
 package com.jwolfe.automation.configuration;
 
-import com.fasterxml.jackson.annotation.*;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
 import com.jwolfe.ankyl.commons.utils.ResourceHelper;
@@ -9,46 +8,21 @@ import com.jwolfe.automation.types.AutomationConfiguration;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.io.IOUtils;
 
-import java.io.*;
+import java.io.ByteArrayInputStream;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
 
 public class YamlConfigLoader implements ConfigLoader {
     @Override
-    public AutomationConfiguration getConfigurationFromFile(String configFilePath) {
+    public AutomationConfiguration getConfigurationFromFile(final String configFilePath) {
         return getConfigurationFromFile(configFilePath, null);
     }
 
-//    @Override
-//    public AutomationConfiguration GetConfiguration(String configFilePath, String password) {
-//        ObjectMapper mapper = new ObjectMapper(new YAMLFactory());
-//        mapper.findAndRegisterModules();
-//
-//        var extension = FilenameUtils.getExtension(configFilePath);
-//
-//        AutomationConfiguration configuration = null;
-//        if(extension.equals("enc")) {
-//            // Encrypted configuration
-//            var box = new AesBox();
-//            var contents = box.getFileContentsAsDecryptedByteArray(configFilePath, password);
-//            try {
-//                configuration = mapper.readValue(contents, AutomationConfiguration.class);
-//            } catch (IOException e) {
-//                e.printStackTrace();
-//            }
-//        }
-//        else {
-//            // Plain text configuration
-//            try {
-//                configuration = mapper.readValue(new File(configFilePath), AutomationConfiguration.class);
-//            } catch (IOException e) {
-//                e.printStackTrace();
-//            }
-//        }
-//
-//        return configuration;
-//    }
-
     @Override
-    public AutomationConfiguration getConfigurationFromFile(final String configFilePath, final String password) {
+    public AutomationConfiguration getConfigurationFromFile(final String configFilePath,
+                                                            final String password) {
         var extension = FilenameUtils.getExtension(configFilePath);
 
         AutomationConfiguration configuration = null;
@@ -77,7 +51,8 @@ public class YamlConfigLoader implements ConfigLoader {
     }
 
     @Override
-    public AutomationConfiguration getConfigurationFromResource(final String resourcePath, final String password) {
+    public AutomationConfiguration getConfigurationFromResource(final String resourcePath,
+                                                                final String password) {
         AutomationConfiguration configuration = null;
         if (password == null || password.trim().equals("")) {
             configuration = getConfigurationFromResource(resourcePath);
