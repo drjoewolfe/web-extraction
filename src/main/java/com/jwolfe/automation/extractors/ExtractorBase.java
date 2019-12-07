@@ -25,6 +25,7 @@ public abstract class ExtractorBase implements Extractor {
     private String name;
     private String description;
     private String category;
+    private String family;
 
     private boolean interactionRequired;
 
@@ -65,6 +66,15 @@ public abstract class ExtractorBase implements Extractor {
     }
 
     @Override
+    public String getFamily() {
+        return family;
+    }
+
+    public void setFamily(String family) {
+        this.family = family;
+    }
+
+    @Override
     public boolean isInteractionRequired() {
         return interactionRequired;
     }
@@ -100,6 +110,11 @@ public abstract class ExtractorBase implements Extractor {
     protected ExtractorBase(AutomationConfiguration config, String name, String category, String description, boolean interactionRequired) {
         this(config, name, category, interactionRequired);
         this.description = description;
+    }
+
+    protected ExtractorBase(AutomationConfiguration config, String name, String category, String family, String description, boolean interactionRequired) {
+        this(config, name, category, description, interactionRequired);
+        this.family = family;
     }
 
     public List<ExtractionRecord> getRecords(WebDriver driver) throws InterruptedException, InterruptedIOException {

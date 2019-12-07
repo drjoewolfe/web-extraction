@@ -16,6 +16,8 @@ public interface Extractor {
 
     String getCategory();
 
+    String getFamily();
+
     boolean isInteractionRequired();
 
     List<ExtractionRecord> getRecords(WebDriver driver) throws InterruptedException, InterruptedIOException;
