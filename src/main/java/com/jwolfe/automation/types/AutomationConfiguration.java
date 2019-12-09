@@ -1,5 +1,7 @@
 package com.jwolfe.automation.types;
 
+import com.jwolfe.automation.extractors.Extractor;
+
 import java.util.List;
 
 public class AutomationConfiguration {
