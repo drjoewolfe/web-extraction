@@ -19,9 +19,11 @@ public class AutomationConfiguration {
 
     private BrowserDriverOptions browserDriverOptions;
 
-    private Boolean logoutAfterExtraction;
+    private boolean logoutAfterExtraction;
 
-    private Boolean closeBrowserAfterExtraction;
+    private boolean closeBrowserAfterExtraction;
+
+    private boolean confirmOnUserInteractions;
 
     public List<SiteConfiguration> getSiteConfigurations() {
         return siteConfigurations;
@@ -79,21 +81,30 @@ public class AutomationConfiguration {
         this.browserDriverOptions = browserDriverOptions;
     }
 
-    public Boolean getLogoutAfterExtraction() {
+    public boolean getLogoutAfterExtraction() {
         return logoutAfterExtraction;
     }
 
-    public void setLogoutAfterExtraction(final Boolean logoutAfterExtraction) {
+    public void setLogoutAfterExtraction(final boolean logoutAfterExtraction) {
         this.logoutAfterExtraction = logoutAfterExtraction;
     }
 
-    public Boolean getCloseBrowserAfterExtraction() {
+    public boolean getCloseBrowserAfterExtraction() {
         return closeBrowserAfterExtraction;
     }
 
-    public void setCloseBrowserAfterExtraction(final Boolean closeBrowserAfterExtraction) {
+    public void setCloseBrowserAfterExtraction(final boolean closeBrowserAfterExtraction) {
         this.closeBrowserAfterExtraction = closeBrowserAfterExtraction;
     }
+
+    public boolean isConfirmOnUserInteractions() {
+        return confirmOnUserInteractions;
+    }
+
+    public void setConfirmOnUserInteractions(boolean confirmOnUserInteractions) {
+        this.confirmOnUserInteractions = confirmOnUserInteractions;
+    }
+
 
     public AutomationConfiguration() {
         this.browserDriverOptions = new BrowserDriverOptions();
