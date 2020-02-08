@@ -278,11 +278,11 @@ public final class SeleniumUtilities {
         return elements.get(0).getText();
     }
 
-    public static void dismissAlertIfPresent(final WebDriver driver, final Logger logger) {
+    public static void acceptAlertIfPresent(final WebDriver driver, final Logger logger) {
         try {
             var alert = driver.switchTo().alert();
-            alert.dismiss();
-            logger.info("Alert dismissed");
+            alert.accept();
+            logger.info("Alert accepted");
 
         } catch (NoAlertPresentException Ex) {
             logger.info("No alert found");

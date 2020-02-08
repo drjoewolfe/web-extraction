@@ -179,7 +179,7 @@ public class BrowserDriverOptions {
             options.addArguments("--disable-notifications");
         }
 
-        if (isChromeDisableNotifications()) {
+        if (isChromeDisablePopupBlocking()) {
             options.addArguments("--disable-popup-blocking");
         }
 
