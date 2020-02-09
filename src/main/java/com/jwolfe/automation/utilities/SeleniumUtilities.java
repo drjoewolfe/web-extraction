@@ -11,6 +11,8 @@ import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.concurrent.TimeUnit;
 import java.util.function.Function;
 
@@ -50,6 +52,23 @@ public final class SeleniumUtilities {
         (new WebDriverWait(driver, 10)).until(new ExpectedCondition<Boolean>() {
             public Boolean apply(WebDriver d) {
                 return d.getCurrentUrl().toLowerCase().endsWith(lowerUrlSuffix);
+            }
+        });
+    }
+
+    public static void waitTillNavigatedToUrlPathSuffix(final WebDriver driver, final String pathSuffix, final Logger logger) {
+        logger.info("Waiting for url path suffix - " + pathSuffix);
+        String lowerPathSuffix = pathSuffix.toLowerCase();
+
+        (new WebDriverWait(driver, 10)).until(new ExpectedCondition<Boolean>() {
+            public Boolean apply(WebDriver d) {
+                try {
+                    var url = new URL(d.getCurrentUrl());
+                    return url.getPath().toLowerCase().endsWith(lowerPathSuffix);
+                } catch (MalformedURLException e) {
+                    e.printStackTrace();
+                    return false;
+                }
             }
         });
     }
