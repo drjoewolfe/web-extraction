@@ -281,6 +281,10 @@ public final class SeleniumUtilities {
     }
 
     public static double getDouble(final String amountString) {
+        if(amountString.trim().equals("--")) {
+            return 0;
+        }
+
         return Double.parseDouble(amountString.replaceAll("[^-0-9\\.]", ""));
     }
 
