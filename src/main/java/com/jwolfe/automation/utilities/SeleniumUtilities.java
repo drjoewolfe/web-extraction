@@ -255,6 +255,18 @@ public final class SeleniumUtilities {
         logger.info("Resuming from sleep");
     }
 
+    public static void sleepNoException(final int seconds, final Logger logger) {
+        logger.info("Sleeping for " + seconds + " seconds");
+        try {
+            Thread.sleep(seconds * 1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        logger.info("Resuming from sleep");
+    }
+
+
     public static String getString(final WebElement rootElement, final String childXPath) {
         return rootElement.findElement(By.xpath(childXPath)).getText();
     }
