@@ -12,6 +12,8 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.net.MalformedURLException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.concurrent.TimeUnit;
 import java.util.function.Function;
@@ -51,7 +53,12 @@ public final class SeleniumUtilities {
 
         (new WebDriverWait(driver, 10)).until(new ExpectedCondition<Boolean>() {
             public Boolean apply(WebDriver d) {
-                return d.getCurrentUrl().toLowerCase().endsWith(lowerUrlSuffix);
+                try {
+                    return new URI(d.getCurrentUrl()).getPath().toLowerCase().endsWith(lowerUrlSuffix);
+                } catch (URISyntaxException e) {
+                    e.printStackTrace();
+                    return false;
+                }
             }
         });
     }
