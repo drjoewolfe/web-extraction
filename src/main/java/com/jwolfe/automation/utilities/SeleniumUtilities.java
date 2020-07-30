@@ -7,6 +7,7 @@ import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.NoAlertPresentException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -15,6 +16,9 @@ import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.concurrent.TimeUnit;
 import java.util.function.Function;
 
@@ -300,11 +304,22 @@ public final class SeleniumUtilities {
     }
 
     public static double getDouble(final String amountString) {
-        if(amountString.trim().equals("--")) {
+        String trimmedString = amountString.trim();
+        if(trimmedString.equals("--") || trimmedString.equals("")) {
             return 0;
         }
 
-        return Double.parseDouble(amountString.replaceAll("[^-0-9\\.]", ""));
+        return Double.parseDouble(trimmedString.replaceAll("[^-0-9\\.]", ""));
+    }
+
+    public static Date getDateForDDMMYYString(final String dateString) {
+        try {
+            return new SimpleDateFormat("dd/MM/yyyy").parse(dateString);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        return null;
     }
 
     public static boolean elementExists(final WebDriver driver, final String xPath) {
@@ -329,5 +344,11 @@ public final class SeleniumUtilities {
         } catch (NoAlertPresentException Ex) {
             logger.info("No alert found");
         }
+    }
+
+    public static void scrollToElement(WebDriver driver, WebElement element) {
+        Actions actions = new Actions(driver);
+        actions.moveToElement(element);
+        actions.perform();
     }
 }
