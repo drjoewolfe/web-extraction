@@ -25,6 +25,8 @@ public class AutomationConfiguration {
 
     private boolean confirmOnUserInteractions;
 
+    private RunnerSettings runnerSettings;
+
     public List<SiteConfiguration> getSiteConfigurations() {
         return siteConfigurations;
     }
@@ -105,6 +107,13 @@ public class AutomationConfiguration {
         this.confirmOnUserInteractions = confirmOnUserInteractions;
     }
 
+    public RunnerSettings getRunnerSettings() {
+        return runnerSettings;
+    }
+
+    public void setRunnerSettings(RunnerSettings runnerSettings) {
+        this.runnerSettings = runnerSettings;
+    }
 
     public AutomationConfiguration() {
         this.browserDriverOptions = new BrowserDriverOptions();
