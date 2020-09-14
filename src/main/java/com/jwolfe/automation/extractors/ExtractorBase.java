@@ -4,6 +4,7 @@ import com.google.common.base.Stopwatch;
 import com.jwolfe.automation.types.AutomationConfiguration;
 import com.jwolfe.automation.types.ExtractorResult;
 import com.jwolfe.automation.types.RunStatus;
+import com.jwolfe.automation.types.RunnerSettings;
 import com.jwolfe.automation.types.SiteConfiguration;
 import com.jwolfe.automation.types.records.ExtractionRecord;
 import com.jwolfe.ankyl.commons.core.CheckedConsumer;
@@ -35,6 +36,7 @@ public abstract class ExtractorBase implements Extractor {
 
     protected AutomationConfiguration config;
     protected SiteConfiguration siteConfig;
+    protected RunnerSettings runnerSettings;
     protected List<CheckedConsumer<String>> userInteractionRequestCallbacks;
     protected List<Consumer<ExtractorResult>> extractionProgressCallbacks;
 
