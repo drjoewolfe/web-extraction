@@ -32,6 +32,14 @@ public final class SeleniumUtilities {
     }
 
     public static void login(final WebDriver driver, final SiteConfiguration siteConfig, final String userNameInputId, final String passwordInputId, final String loginButtonId, final int loginWaitSeconds, final Logger logger) throws InterruptedException {
+        loginFillDetails(driver, siteConfig, userNameInputId, passwordInputId, loginWaitSeconds, logger);
+
+        WebElement loginButton = driver.findElement(By.id(loginButtonId));
+        loginButton.click();
+        logger.info("<Hope> Should be logged in now");
+    }
+
+    public static void loginFillDetails(final WebDriver driver, final SiteConfiguration siteConfig, final String userNameInputId, final String passwordInputId, final int loginWaitSeconds, final Logger logger) throws InterruptedException {
         logger.info("Navigating to login page");
         driver.get(siteConfig.getLoginUrl());
 
@@ -42,13 +50,9 @@ public final class SeleniumUtilities {
         logger.info("Logging in");
         WebElement userIdBox = driver.findElement(By.id(userNameInputId));
         WebElement passwordBox = driver.findElement(By.id(passwordInputId));
-        WebElement loginButton = driver.findElement(By.id(loginButtonId));
 
         userIdBox.sendKeys(siteConfig.getUserName());
         passwordBox.sendKeys(siteConfig.getPassword());
-
-        loginButton.click();
-        logger.info("<Hope> Should be logged in now");
     }
 
     public static void waitTillNavigatedToUrlSuffix(final WebDriver driver, final String urlSuffix, final Logger logger) {
