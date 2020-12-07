@@ -286,7 +286,7 @@ public final class SeleniumUtilities {
         return rootElement.findElement(By.xpath(childXPath)).getText();
     }
 
-    public static double getDouble(final WebElement element) {
+    public static double  getDouble(final WebElement element) {
         return Double.parseDouble(element.getText().replaceAll("[^0-9\\.]", ""));
     }
 
