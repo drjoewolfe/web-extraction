@@ -100,6 +100,10 @@ public final class SeleniumUtilities {
         (new WebDriverWait(driver, 10)).until(ExpectedConditions.presenceOfElementLocated(By.xpath(elementXPath)));
     }
 
+    public static void waitTillElementVisible(final WebDriver driver, final WebElement element) {
+        (new WebDriverWait(driver, 10)).until(ExpectedConditions.visibilityOf(element));
+    }
+
     public static void waitTillElementVisible(final WebDriver driver, final String id) {
         (new WebDriverWait(driver, 10)).until(ExpectedConditions.visibilityOfElementLocated(By.id(id)));
     }
@@ -123,6 +127,10 @@ public final class SeleniumUtilities {
     public static void scrollElementByXPathToView(final WebDriver driver, final String elementXPath) {
         var element = driver.findElement(By.xpath(elementXPath));
         ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", element);
+    }
+
+    public static void waitTillElementClickable(final WebDriver driver, final WebElement element) {
+        (new WebDriverWait(driver, 10)).until(ExpectedConditions.elementToBeClickable(element));
     }
 
     public static void waitTillXPathElementClickable(final WebDriver driver, final String elementXPath) {
