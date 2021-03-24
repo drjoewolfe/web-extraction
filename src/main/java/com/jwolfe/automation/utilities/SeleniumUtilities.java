@@ -55,11 +55,11 @@ public final class SeleniumUtilities {
         passwordBox.sendKeys(siteConfig.getPassword());
     }
 
-    public static void waitTillNavigatedToUrlSuffix(final WebDriver driver, final String urlSuffix, final Logger logger) {
+    public static void waitTillNavigatedToUrlSuffix(final WebDriver driver, final String urlSuffix, final int timeOutInSeconds, final Logger logger) {
         logger.info("Waiting for url suffix - " + urlSuffix);
         String lowerUrlSuffix = urlSuffix.toLowerCase();
 
-        (new WebDriverWait(driver, 10)).until(new ExpectedCondition<Boolean>() {
+        (new WebDriverWait(driver, timeOutInSeconds)).until(new ExpectedCondition<Boolean>() {
             public Boolean apply(WebDriver d) {
                 try {
                     return new URI(d.getCurrentUrl()).getPath().toLowerCase().endsWith(lowerUrlSuffix);
@@ -69,6 +69,10 @@ public final class SeleniumUtilities {
                 }
             }
         });
+    }
+
+    public static void waitTillNavigatedToUrlSuffix(final WebDriver driver, final String urlSuffix, final Logger logger) {
+        waitTillNavigatedToUrlSuffix(driver, urlSuffix, 10, logger);
     }
 
     public static void waitTillNavigatedToUrlPathSuffix(final WebDriver driver, final String pathSuffix, final Logger logger) {
