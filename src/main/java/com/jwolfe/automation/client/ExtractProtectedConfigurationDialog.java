@@ -86,7 +86,7 @@ public class ExtractProtectedConfigurationDialog extends JDialog {
             configuration = (new YamlConfigLoader()).getConfigurationFromFile(configFilePath, password);
         } catch (Exception e) {
             // Failed to extract configuration
-            JOptionPane.showMessageDialog(this, "Could not unlock the configuration with the specified password.\n"
+            JOptionPane.showMessageDialog(this, "Could not unlock the configuration. Exception is : " + e.toString() + "\n"
                     + "This could be because the password is incorrect. This could also be caused if the configuration is corrupt.\n"
                     + "Try again with the correct password if appropriate.");
             extractionSucceeded = false;
