@@ -183,6 +183,8 @@ public class BrowserDriverOptions {
             options.addArguments("--disable-popup-blocking");
         }
 
+        options.addArguments("--disable-blink-features=AutomationControlled");
+
         return options;
     }
 

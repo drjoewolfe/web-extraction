@@ -112,6 +112,10 @@ public final class SeleniumUtilities {
         (new WebDriverWait(driver, 10)).until(ExpectedConditions.visibilityOfElementLocated(By.id(id)));
     }
 
+    public static void waitTillElementByIdVisible(final WebDriver driver, final String id) {
+        (new WebDriverWait(driver, 10)).until(ExpectedConditions.visibilityOfElementLocated(By.id(id)));
+    }
+
     public static void waitTillElementByNameVisible(final WebDriver driver, final String name) {
         (new WebDriverWait(driver, 10)).until(ExpectedConditions.visibilityOfElementLocated(By.name(name)));
     }
