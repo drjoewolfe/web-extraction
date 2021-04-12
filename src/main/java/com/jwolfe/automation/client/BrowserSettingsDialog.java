@@ -14,6 +14,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.util.function.Consumer;
 
 public class BrowserSettingsDialog extends JDialog {
     private JPanel contentPane;
@@ -35,6 +36,7 @@ public class BrowserSettingsDialog extends JDialog {
     private JCheckBox firefoxDisableNotificationsCheckBox;
 
     private AutomationConfiguration config;
+    private Consumer<AutomationConfiguration> callback;
 
     public AutomationConfiguration getConfig() {
         return config;
@@ -78,8 +80,13 @@ public class BrowserSettingsDialog extends JDialog {
     }
 
     public void show(final AutomationConfiguration config) {
-        setSize(500, 500);
+        this.show(config, null);
+    }
 
+    public void show(final AutomationConfiguration config, final Consumer<AutomationConfiguration> callback) {
+        this.callback = callback;
+
+        setSize(500, 500);
         setConfig(config);
         updateFieldsFromConfig();
 
@@ -155,6 +162,10 @@ public class BrowserSettingsDialog extends JDialog {
 
     private void onOK() {
         updateConfigFromFields();
+        if(callback != null) {
+            callback.accept(this.config);
+        }
+
         dispose();
     }
 
