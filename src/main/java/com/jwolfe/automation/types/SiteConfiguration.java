@@ -2,6 +2,7 @@ package com.jwolfe.automation.types;
 
 public class SiteConfiguration {
     private String name;
+    private String institution;
     private String startingUrl;
     private String startingContent;
     private String loginUrl;
@@ -17,6 +18,14 @@ public class SiteConfiguration {
 
     public void setName(final String name) {
         this.name = name;
+    }
+
+    public String getInstitution() {
+        return institution;
+    }
+
+    public void setInstitution(String institution) {
+        this.institution = institution;
     }
 
     public String getStartingUrl() {

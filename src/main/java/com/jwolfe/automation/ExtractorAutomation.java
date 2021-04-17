@@ -35,7 +35,7 @@ public class ExtractorAutomation {
         var extract = runSummary.getExtract();
         var today = Calendar.getInstance().getTime();
         extract.setExtractDate(today);
-        extract.setVersion(1);
+        extract.setVersion(2);
         notifyRunSummaryUpdatedListeners(runSummary);
 
         extractRecords(configuration, runSummary);
