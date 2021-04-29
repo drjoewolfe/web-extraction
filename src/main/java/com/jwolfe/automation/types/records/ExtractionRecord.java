@@ -1,5 +1,6 @@
 package com.jwolfe.automation.types.records;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 public abstract class ExtractionRecord {
@@ -7,7 +8,7 @@ public abstract class ExtractionRecord {
 
     protected String name;
 
-    protected Date recordDate;
+    protected LocalDate recordDate;
 
     public String getRecordType() {
         return recordType;
@@ -21,11 +22,11 @@ public abstract class ExtractionRecord {
         this.name = name;
     }
 
-    public Date getRecordDate() {
+    public LocalDate getRecordDate() {
         return recordDate;
     }
 
-    public void setRecordDate(Date recordDate) {
+    public void setRecordDate(LocalDate recordDate) {
         this.recordDate = recordDate;
     }
 
