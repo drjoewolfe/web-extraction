@@ -282,8 +282,6 @@ public final class SeleniumUtilities {
     public static void sleep(final int seconds, final Logger logger) throws InterruptedException {
         logger.info("Sleeping for " + seconds + " seconds");
         Thread.sleep(seconds * 1000);
-
-        logger.info("Resuming from sleep");
     }
 
     public static void sleepNoException(final int seconds, final Logger logger) {
@@ -293,8 +291,6 @@ public final class SeleniumUtilities {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-
-        logger.info("Resuming from sleep");
     }
 
 
