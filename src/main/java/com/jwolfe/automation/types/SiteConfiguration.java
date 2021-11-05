@@ -11,6 +11,7 @@ public class SiteConfiguration {
     private String encryptedPassword;
     private String password;
     private String pan;
+    private String pin;
 
     public String getName() {
         return name;
@@ -90,6 +91,14 @@ public class SiteConfiguration {
 
     public void setPan(final String pan) {
         this.pan = pan;
+    }
+
+    public String getPin() {
+        return pin;
+    }
+
+    public void setPin(final String pin) {
+        this.pin = pin;
     }
 
     public SiteConfiguration() {

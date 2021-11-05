@@ -367,4 +367,17 @@ public final class SeleniumUtilities {
         actions.moveToElement(element);
         actions.perform();
     }
+
+    public static String constructRelativeUrl(WebDriver driver, String relativePath) {
+        URL currentUrl = null;
+        URL newUrl = null;
+        try {
+            currentUrl = new URL(driver.getCurrentUrl());
+            newUrl = new URL(currentUrl.getProtocol(), currentUrl.getHost(), currentUrl.getPort(), relativePath);
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
+
+        return newUrl.toString();
+    }
 }
