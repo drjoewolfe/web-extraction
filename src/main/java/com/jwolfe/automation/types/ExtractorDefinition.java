@@ -2,6 +2,7 @@ package com.jwolfe.automation.types;
 
 public class ExtractorDefinition {
     private String type;
+    private String name;
     private SiteConfiguration siteConfiguration;
 
     public String getType() {
@@ -10,6 +11,14 @@ public class ExtractorDefinition {
 
     public void setType(String type) {
         this.type = type;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public SiteConfiguration getSiteConfiguration() {

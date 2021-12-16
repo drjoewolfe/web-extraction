@@ -5,10 +5,6 @@ import java.util.List;
 public class AutomationConfiguration {
     private List<ExtractorDefinition> extractorDefinitions;
 
-    private List<SiteConfiguration> siteConfigurations;
-
-    private List<String> extractorNames;
-
     private String outputFilePath;
 
     private boolean appendToFile;
@@ -33,22 +29,6 @@ public class AutomationConfiguration {
 
     public void setExtractorDefinitions(List<ExtractorDefinition> extractorDefinitions) {
         this.extractorDefinitions = extractorDefinitions;
-    }
-
-    public List<SiteConfiguration> getSiteConfigurations() {
-        return siteConfigurations;
-    }
-
-    public void setSiteConfigurations(List<SiteConfiguration> siteConfigurations) {
-        this.siteConfigurations = siteConfigurations;
-    }
-
-    public List<String> getExtractorNames() {
-        return extractorNames;
-    }
-
-    public void setExtractorNames(final List<String> extractorNames) {
-        this.extractorNames = extractorNames;
     }
 
     public String getOutputFilePath() {
@@ -125,12 +105,5 @@ public class AutomationConfiguration {
 
     public AutomationConfiguration() {
         this.browserDriverOptions = new BrowserDriverOptions();
-    }
-
-    public SiteConfiguration getSiteConfiguration(final String name) {
-        return this.siteConfigurations.stream()
-                .filter(config -> name.equals(config.getName()))
-                .findAny()
-                .orElse(null);
     }
 }

@@ -13,6 +13,8 @@ import java.util.function.Consumer;
 public interface Extractor {
     String getName();
 
+    String getExtractorName();
+
     String getDescription();
 
     String getCategory();

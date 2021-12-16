@@ -4,22 +4,19 @@ import com.google.common.base.Stopwatch;
 import com.jwolfe.automation.types.*;
 import com.jwolfe.automation.types.records.ExtractionRecord;
 import com.jwolfe.ankyl.commons.core.CheckedConsumer;
-import com.jwolfe.automation.utilities.SeleniumUtilities;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
 import java.io.InterruptedIOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.Callable;
 import java.util.function.Consumer;
 
 public abstract class ExtractorBase implements Extractor {
     protected final Logger logger = LogManager.getLogger();
 
-    private String name;
+    private String extractorName;
     private String description;
     private String category;
     private String family;
@@ -31,19 +28,23 @@ public abstract class ExtractorBase implements Extractor {
         return logger;
     }
 
-    protected AutomationConfiguration config;
-    protected SiteConfiguration siteConfig;
-    protected RunnerSettings runnerSettings;
-    protected List<CheckedConsumer<String>> userInteractionRequestCallbacks;
-    protected List<Consumer<ExtractorResult>> extractionProgressCallbacks;
+    private AutomationConfiguration config;
+    private RunnerSettings runnerSettings;
+    private List<CheckedConsumer<String>> userInteractionRequestCallbacks;
+    private List<Consumer<ExtractorResult>> extractionProgressCallbacks;
 
     @Override
     public String getName() {
-        return name;
+        return getDefinition().getName();
     }
 
-    protected void setName(String name) {
-        this.name = name;
+    @Override
+    public String getExtractorName() {
+        return extractorName;
+    }
+
+    protected void setExtractorName(String extractorName) {
+        this.extractorName = extractorName;
     }
 
     @Override
@@ -92,37 +93,37 @@ public abstract class ExtractorBase implements Extractor {
     }
 
     protected ExtractorBase(AutomationConfiguration config, ExtractorDefinition definition) {
-        this.config = config;
+        this.setConfig(config);
         this.definition = definition;
     }
 
-    protected ExtractorBase(AutomationConfiguration config, ExtractorDefinition definition, String name) {
+    protected ExtractorBase(AutomationConfiguration config, ExtractorDefinition definition, String extractorName) {
         this(config, definition);
-        this.name = name;
+        this.extractorName = extractorName;
     }
 
-    protected ExtractorBase(AutomationConfiguration config, ExtractorDefinition definition, String name, String category) {
-        this(config, definition, name);
+    protected ExtractorBase(AutomationConfiguration config, ExtractorDefinition definition, String extractorName, String category) {
+        this(config, definition, extractorName);
         this.category = category;
     }
 
-    protected ExtractorBase(AutomationConfiguration config, ExtractorDefinition definition, String name, String category, String description) {
-        this(config, definition, name, category);
+    protected ExtractorBase(AutomationConfiguration config, ExtractorDefinition definition, String extractorName, String category, String description) {
+        this(config, definition, extractorName, category);
         this.description = description;
     }
 
-    protected ExtractorBase(AutomationConfiguration config, ExtractorDefinition definition, String name, String category, boolean interactionRequired) {
-        this(config, definition, name, category);
+    protected ExtractorBase(AutomationConfiguration config, ExtractorDefinition definition, String extractorName, String category, boolean interactionRequired) {
+        this(config, definition, extractorName, category);
         this.interactionRequired = interactionRequired;
     }
 
-    protected ExtractorBase(AutomationConfiguration config, ExtractorDefinition definition, String name, String category, String description, boolean interactionRequired) {
-        this(config, definition, name, category, interactionRequired);
+    protected ExtractorBase(AutomationConfiguration config, ExtractorDefinition definition, String extractorName, String category, String description, boolean interactionRequired) {
+        this(config, definition, extractorName, category, interactionRequired);
         this.description = description;
     }
 
-    protected ExtractorBase(AutomationConfiguration config, ExtractorDefinition definition, String name, String category, String family, String description, boolean interactionRequired) {
-        this(config, definition, name, category, description, interactionRequired);
+    protected ExtractorBase(AutomationConfiguration config, ExtractorDefinition definition, String extractorName, String category, String family, String description, boolean interactionRequired) {
+        this(config, definition, extractorName, category, description, interactionRequired);
         this.family = family;
     }
 
@@ -178,29 +179,29 @@ public abstract class ExtractorBase implements Extractor {
 
     @Override
     public void registerUserInteractionRequestCallback(CheckedConsumer<String> callback) {
-        if (userInteractionRequestCallbacks == null) {
-            userInteractionRequestCallbacks = new ArrayList<>();
+        if (getUserInteractionRequestCallbacks() == null) {
+            setUserInteractionRequestCallbacks(new ArrayList<>());
         }
 
-        userInteractionRequestCallbacks.add(callback);
+        getUserInteractionRequestCallbacks().add(callback);
     }
 
     @Override
     public void registerExtractionProgressCallback(Consumer<ExtractorResult> callback) {
-        if (extractionProgressCallbacks == null) {
-            extractionProgressCallbacks = new ArrayList<>();
+        if (getExtractionProgressCallbacks() == null) {
+            setExtractionProgressCallbacks(new ArrayList<>());
         }
 
-        extractionProgressCallbacks.add(callback);
+        getExtractionProgressCallbacks().add(callback);
     }
 
     @Override
     public void clearExtractionProgressCallbacks() {
-        if (extractionProgressCallbacks == null) {
+        if (getExtractionProgressCallbacks() == null) {
             return;
         }
 
-        extractionProgressCallbacks.clear();
+        getExtractionProgressCallbacks().clear();
     }
 
     protected void raiseUserInteractionRequests(String message) throws InterruptedException {
@@ -213,11 +214,11 @@ public abstract class ExtractorBase implements Extractor {
             watch.start();
         }
 
-        if (userInteractionRequestCallbacks == null) {
+        if (getUserInteractionRequestCallbacks() == null) {
             return;
         }
 
-        for (var callback : userInteractionRequestCallbacks) {
+        for (var callback : getUserInteractionRequestCallbacks()) {
             callback.accept(message);
         }
 
@@ -233,11 +234,11 @@ public abstract class ExtractorBase implements Extractor {
     }
 
     protected void raiseExtractionProgressChanged(ExtractorResult result) {
-        if (extractionProgressCallbacks == null) {
+        if (getExtractionProgressCallbacks() == null) {
             return;
         }
 
-        for (var callback : extractionProgressCallbacks) {
+        for (var callback : getExtractionProgressCallbacks()) {
             callback.accept(result);
         }
     }
@@ -259,5 +260,41 @@ public abstract class ExtractorBase implements Extractor {
 
     protected void executeLogoutStep(Runnable logoutRunnable, ExtractorResult result) {
         executeOptionalStep(logoutRunnable, result, "Logout failed");
+    }
+
+    public SiteConfiguration getSiteConfig() {
+        return getDefinition().getSiteConfiguration();
+    }
+
+    public AutomationConfiguration getConfig() {
+        return config;
+    }
+
+    public void setConfig(AutomationConfiguration config) {
+        this.config = config;
+    }
+
+    public RunnerSettings getRunnerSettings() {
+        return runnerSettings;
+    }
+
+    public void setRunnerSettings(RunnerSettings runnerSettings) {
+        this.runnerSettings = runnerSettings;
+    }
+
+    public List<CheckedConsumer<String>> getUserInteractionRequestCallbacks() {
+        return userInteractionRequestCallbacks;
+    }
+
+    public void setUserInteractionRequestCallbacks(List<CheckedConsumer<String>> userInteractionRequestCallbacks) {
+        this.userInteractionRequestCallbacks = userInteractionRequestCallbacks;
+    }
+
+    public List<Consumer<ExtractorResult>> getExtractionProgressCallbacks() {
+        return extractionProgressCallbacks;
+    }
+
+    public void setExtractionProgressCallbacks(List<Consumer<ExtractorResult>> extractionProgressCallbacks) {
+        this.extractionProgressCallbacks = extractionProgressCallbacks;
     }
 }
