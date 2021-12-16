@@ -3,11 +3,7 @@ package com.jwolfe.automation;
 import com.jwolfe.automation.exporters.JsonExporter;
 import com.jwolfe.automation.extractors.Extractor;
 import com.jwolfe.automation.extractors.ExtractorFactory;
-import com.jwolfe.automation.types.AutomationConfiguration;
-import com.jwolfe.automation.types.ExtractionRunSummary;
-import com.jwolfe.automation.types.ExtractorResult;
-import com.jwolfe.automation.types.RunStatus;
-import com.jwolfe.automation.types.RunSummaryUpdatedListener;
+import com.jwolfe.automation.types.*;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.WebDriver;
@@ -59,6 +55,23 @@ public class ExtractorAutomation {
         return runSummary;
     }
 
+//    private void initializeRunSummaryReport(final AutomationConfiguration configuration, final ExtractionRunSummary runSummary) {
+//        var extractorFactory = ExtractorFactory.getInstance();
+//
+//        var extractorsToAttempt = runSummary.getExtractorsToAttempt();
+//        var extractorResultMap = runSummary.getExtractorResultMap();
+//        extractorResultMap.clear();
+//
+//        for (String name : configuration.getExtractorNames()) {
+//            var extractor = extractorFactory.getExtractor(name, configuration);
+//
+//            ExtractorResult extractorResult = new ExtractorResult(extractor);
+//            extractorResult.setRunStatus(RunStatus.Queued);
+//            extractorResultMap.put(name, extractorResult);
+//            extractorsToAttempt.add(extractor);
+//        }
+//    }
+
     private void initializeRunSummaryReport(final AutomationConfiguration configuration, final ExtractionRunSummary runSummary) {
         var extractorFactory = ExtractorFactory.getInstance();
 
@@ -66,12 +79,12 @@ public class ExtractorAutomation {
         var extractorResultMap = runSummary.getExtractorResultMap();
         extractorResultMap.clear();
 
-        for (String name : configuration.getExtractorNames()) {
-            var extractor = extractorFactory.getExtractor(name, configuration);
+        for (ExtractorDefinition definition : configuration.getExtractorDefinitions()) {
+            var extractor = extractorFactory.getExtractor(definition, configuration);
 
             ExtractorResult extractorResult = new ExtractorResult(extractor);
             extractorResult.setRunStatus(RunStatus.Queued);
-            extractorResultMap.put(name, extractorResult);
+            extractorResultMap.put(definition, extractorResult);
             extractorsToAttempt.add(extractor);
         }
     }
@@ -101,10 +114,10 @@ public class ExtractorAutomation {
 
         boolean threadCancelled = false;
         logger.info("Running extractors");
-        for (String name : config.getExtractorNames()) {
-            var extractorResult = runSummary.getExtractorResultMap().get(name);
+        for (ExtractorDefinition definition : config.getExtractorDefinitions()) {
+            var extractorResult = runSummary.getExtractorResultMap().get(definition);
 
-            extractor = extractorFactory.getExtractor(name, config);
+            extractor = extractorFactory.getExtractor(definition, config);
             extractor.clearExtractionProgressCallbacks();
             extractor.registerExtractionProgressCallback(new Consumer<ExtractorResult>() {
                 @Override

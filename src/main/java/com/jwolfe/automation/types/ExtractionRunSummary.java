@@ -12,7 +12,7 @@ import java.util.stream.Collectors;
 public class ExtractionRunSummary {
     private Extract extract;
     // private List<ExtractorResult> extractorResults;
-    private Map<String, ExtractorResult> extractorResultMap;
+    private Map<ExtractorDefinition, ExtractorResult> extractorResultMap;
     private List<Extractor> extractorsToAttempt;
 
     public Extract getExtract() {
@@ -23,11 +23,11 @@ public class ExtractionRunSummary {
         return extractorResultMap.values();
     }
 
-    public Map<String, ExtractorResult> getExtractorResultMap() {
+    public Map<ExtractorDefinition, ExtractorResult> getExtractorResultMap() {
         return extractorResultMap;
     }
 
-    public void setExtractorResultMap(Map<String, ExtractorResult> extractorResultMap) {
+    public void setExtractorResultMap(Map<ExtractorDefinition, ExtractorResult> extractorResultMap) {
         this.extractorResultMap = extractorResultMap;
     }
 

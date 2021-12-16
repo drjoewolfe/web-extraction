@@ -1,10 +1,10 @@
 package com.jwolfe.automation.types;
 
-import com.jwolfe.automation.extractors.Extractor;
-
 import java.util.List;
 
 public class AutomationConfiguration {
+    private List<ExtractorDefinition> extractorDefinitions;
+
     private List<SiteConfiguration> siteConfigurations;
 
     private List<String> extractorNames;
@@ -26,6 +26,14 @@ public class AutomationConfiguration {
     private boolean confirmOnUserInteractions;
 
     private RunnerSettings runnerSettings;
+
+    public List<ExtractorDefinition> getExtractorDefinitions() {
+        return extractorDefinitions;
+    }
+
+    public void setExtractorDefinitions(List<ExtractorDefinition> extractorDefinitions) {
+        this.extractorDefinitions = extractorDefinitions;
+    }
 
     public List<SiteConfiguration> getSiteConfigurations() {
         return siteConfigurations;

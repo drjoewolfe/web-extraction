@@ -8,6 +8,7 @@ public class SiteConfiguration {
     private String loginUrl;
     private String portfolioUrl;
     private String userName;
+    private String phoneNumber;
     private String encryptedPassword;
     private String password;
     private String pan;
@@ -67,6 +68,14 @@ public class SiteConfiguration {
 
     public void setUserName(final String userName) {
         this.userName = userName;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(final String phoneNumber) {
+        this.phoneNumber = phoneNumber;
     }
 
     public String getEncryptedPassword() {

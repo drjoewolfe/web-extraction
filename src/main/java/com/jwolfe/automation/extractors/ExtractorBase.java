@@ -1,11 +1,7 @@
 package com.jwolfe.automation.extractors;
 
 import com.google.common.base.Stopwatch;
-import com.jwolfe.automation.types.AutomationConfiguration;
-import com.jwolfe.automation.types.ExtractorResult;
-import com.jwolfe.automation.types.RunStatus;
-import com.jwolfe.automation.types.RunnerSettings;
-import com.jwolfe.automation.types.SiteConfiguration;
+import com.jwolfe.automation.types.*;
 import com.jwolfe.automation.types.records.ExtractionRecord;
 import com.jwolfe.ankyl.commons.core.CheckedConsumer;
 import com.jwolfe.automation.utilities.SeleniumUtilities;
@@ -27,6 +23,7 @@ public abstract class ExtractorBase implements Extractor {
     private String description;
     private String category;
     private String family;
+    private ExtractorDefinition definition;
 
     private boolean interactionRequired;
 
@@ -77,6 +74,15 @@ public abstract class ExtractorBase implements Extractor {
     }
 
     @Override
+    public ExtractorDefinition getDefinition() {
+        return definition;
+    }
+
+    public void setDefinition(ExtractorDefinition definition) {
+        this.definition = definition;
+    }
+
+    @Override
     public boolean isInteractionRequired() {
         return interactionRequired;
     }
@@ -85,37 +91,38 @@ public abstract class ExtractorBase implements Extractor {
         this.interactionRequired = interactionRequired;
     }
 
-    protected ExtractorBase(AutomationConfiguration config) {
+    protected ExtractorBase(AutomationConfiguration config, ExtractorDefinition definition) {
         this.config = config;
+        this.definition = definition;
     }
 
-    protected ExtractorBase(AutomationConfiguration config, String name) {
-        this(config);
+    protected ExtractorBase(AutomationConfiguration config, ExtractorDefinition definition, String name) {
+        this(config, definition);
         this.name = name;
     }
 
-    protected ExtractorBase(AutomationConfiguration config, String name, String category) {
-        this(config, name);
+    protected ExtractorBase(AutomationConfiguration config, ExtractorDefinition definition, String name, String category) {
+        this(config, definition, name);
         this.category = category;
     }
 
-    protected ExtractorBase(AutomationConfiguration config, String name, String category, String description) {
-        this(config, name, category);
+    protected ExtractorBase(AutomationConfiguration config, ExtractorDefinition definition, String name, String category, String description) {
+        this(config, definition, name, category);
         this.description = description;
     }
 
-    protected ExtractorBase(AutomationConfiguration config, String name, String category, boolean interactionRequired) {
-        this(config, name, category);
+    protected ExtractorBase(AutomationConfiguration config, ExtractorDefinition definition, String name, String category, boolean interactionRequired) {
+        this(config, definition, name, category);
         this.interactionRequired = interactionRequired;
     }
 
-    protected ExtractorBase(AutomationConfiguration config, String name, String category, String description, boolean interactionRequired) {
-        this(config, name, category, interactionRequired);
+    protected ExtractorBase(AutomationConfiguration config, ExtractorDefinition definition, String name, String category, String description, boolean interactionRequired) {
+        this(config, definition, name, category, interactionRequired);
         this.description = description;
     }
 
-    protected ExtractorBase(AutomationConfiguration config, String name, String category, String family, String description, boolean interactionRequired) {
-        this(config, name, category, description, interactionRequired);
+    protected ExtractorBase(AutomationConfiguration config, ExtractorDefinition definition, String name, String category, String family, String description, boolean interactionRequired) {
+        this(config, definition, name, category, description, interactionRequired);
         this.family = family;
     }
 

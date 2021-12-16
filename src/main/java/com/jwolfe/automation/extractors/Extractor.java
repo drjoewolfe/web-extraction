@@ -1,5 +1,6 @@
 package com.jwolfe.automation.extractors;
 
+import com.jwolfe.automation.types.ExtractorDefinition;
 import com.jwolfe.automation.types.ExtractorResult;
 import com.jwolfe.ankyl.commons.core.CheckedConsumer;
 import com.jwolfe.automation.types.records.ExtractionRecord;
@@ -17,6 +18,8 @@ public interface Extractor {
     String getCategory();
 
     String getFamily();
+
+    ExtractorDefinition getDefinition();
 
     boolean isInteractionRequired();
 
