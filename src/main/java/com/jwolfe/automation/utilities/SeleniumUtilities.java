@@ -215,6 +215,10 @@ public final class SeleniumUtilities {
         return driver.findElements(By.xpath(xpath)).size() != 0;
     }
 
+    public static boolean elementByNameExists(final WebDriver driver, final String name) {
+        return driver.findElements(By.name(name)).size() != 0;
+    }
+
     public static void clickButtonByIdIfExists(final WebDriver driver, final String buttonId, final Logger logger) {
         boolean clicked = false;
         try {
