@@ -1,6 +1,7 @@
 package com.jwolfe.automation.utilities;
 
 import com.jwolfe.automation.types.SiteConfiguration;
+import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
@@ -23,28 +24,30 @@ import java.util.concurrent.TimeUnit;
 import java.util.function.Function;
 
 public final class SeleniumUtilities {
+    protected static final Logger logger = LogManager.getLogger();
+
     private SeleniumUtilities() {
 
     }
 
-    public static void login(final WebDriver driver, final SiteConfiguration siteConfig, final String userNameInputId, final String passwordInputId, final String loginButtonId, final Logger logger) throws InterruptedException {
-        login(driver, siteConfig, userNameInputId, passwordInputId, loginButtonId, 0, logger);
+    public static void login(final WebDriver driver, final SiteConfiguration siteConfig, final String userNameInputId, final String passwordInputId, final String loginButtonId) throws InterruptedException {
+        login(driver, siteConfig, userNameInputId, passwordInputId, loginButtonId, 0);
     }
 
-    public static void login(final WebDriver driver, final SiteConfiguration siteConfig, final String userNameInputId, final String passwordInputId, final String loginButtonId, final int loginWaitSeconds, final Logger logger) throws InterruptedException {
-        loginFillDetails(driver, siteConfig, userNameInputId, passwordInputId, loginWaitSeconds, logger);
+    public static void login(final WebDriver driver, final SiteConfiguration siteConfig, final String userNameInputId, final String passwordInputId, final String loginButtonId, final int loginWaitSeconds) throws InterruptedException {
+        loginFillDetails(driver, siteConfig, userNameInputId, passwordInputId, loginWaitSeconds);
 
         WebElement loginButton = driver.findElement(By.id(loginButtonId));
         loginButton.click();
         logger.info("<Hope> Should be logged in now");
     }
 
-    public static void loginFillDetails(final WebDriver driver, final SiteConfiguration siteConfig, final String userNameInputId, final String passwordInputId, final int loginWaitSeconds, final Logger logger) throws InterruptedException {
+    public static void loginFillDetails(final WebDriver driver, final SiteConfiguration siteConfig, final String userNameInputId, final String passwordInputId, final int loginWaitSeconds) throws InterruptedException {
         logger.info("Navigating to login page");
         driver.get(siteConfig.getLoginUrl());
 
         if (loginWaitSeconds > 0) {
-            sleep(loginWaitSeconds, logger);
+            sleep(loginWaitSeconds);
         }
 
         logger.info("Logging in");
@@ -55,7 +58,7 @@ public final class SeleniumUtilities {
         passwordBox.sendKeys(siteConfig.getPassword());
     }
 
-    public static void waitTillNavigatedToUrlSuffix(final WebDriver driver, final String urlSuffix, final int timeOutInSeconds, final Logger logger) {
+    public static void waitTillNavigatedToUrlSuffix(final WebDriver driver, final String urlSuffix, final int timeOutInSeconds) {
         logger.info("Waiting for url suffix - " + urlSuffix);
         String lowerUrlSuffix = urlSuffix.toLowerCase();
 
@@ -71,11 +74,11 @@ public final class SeleniumUtilities {
         });
     }
 
-    public static void waitTillNavigatedToUrlSuffix(final WebDriver driver, final String urlSuffix, final Logger logger) {
-        waitTillNavigatedToUrlSuffix(driver, urlSuffix, 10, logger);
+    public static void waitTillNavigatedToUrlSuffix(final WebDriver driver, final String urlSuffix) {
+        waitTillNavigatedToUrlSuffix(driver, urlSuffix, 10);
     }
 
-    public static void waitTillNavigatedToUrlPathSuffix(final WebDriver driver, final String pathSuffix, final Logger logger) {
+    public static void waitTillNavigatedToUrlPathSuffix(final WebDriver driver, final String pathSuffix) {
         logger.info("Waiting for url path suffix - " + pathSuffix);
         String lowerPathSuffix = pathSuffix.toLowerCase();
 
@@ -159,7 +162,7 @@ public final class SeleniumUtilities {
         clickableElement.click();
     }
 
-    public static boolean elementByIdExists(final WebDriver driver, final String id, final Logger logger) {
+    public static boolean elementByIdExists(final WebDriver driver, final String id) {
         boolean exists = false;
         try {
             driver.manage().timeouts().implicitlyWait(0, TimeUnit.MILLISECONDS);
@@ -183,7 +186,7 @@ public final class SeleniumUtilities {
         return exists;
     }
 
-    public static boolean elementByClassNameExists(final WebDriver driver, final String className, final Logger logger) {
+    public static boolean elementByClassNameExists(final WebDriver driver, final String className) {
         boolean exists = false;
         try {
             driver.manage().timeouts().implicitlyWait(0, TimeUnit.MILLISECONDS);
@@ -219,7 +222,7 @@ public final class SeleniumUtilities {
         return driver.findElements(By.name(name)).size() != 0;
     }
 
-    public static void clickButtonByIdIfExists(final WebDriver driver, final String buttonId, final Logger logger) {
+    public static void clickButtonByIdIfExists(final WebDriver driver, final String buttonId) {
         boolean clicked = false;
         try {
             driver.manage().timeouts().implicitlyWait(0, TimeUnit.MILLISECONDS);
@@ -240,7 +243,7 @@ public final class SeleniumUtilities {
         }
     }
 
-    public static void clickElementByXPathIfExists(final WebDriver driver, final String xpath, final Logger logger) {
+    public static void clickElementByXPathIfExists(final WebDriver driver, final String xpath) {
         boolean clicked = false;
         try {
             driver.manage().timeouts().implicitlyWait(0, TimeUnit.MILLISECONDS);
@@ -261,7 +264,7 @@ public final class SeleniumUtilities {
         }
     }
 
-    public static void clickButtonByIdIfExists(final WebDriver driver, final String iframeId, final String buttonId, final Logger logger) {
+    public static void clickButtonByIdIfExists(final WebDriver driver, final String iframeId, final String buttonId) {
         boolean clicked = false;
         try {
             driver.manage().timeouts().implicitlyWait(0, TimeUnit.MILLISECONDS);
@@ -287,7 +290,7 @@ public final class SeleniumUtilities {
         }
     }
 
-    public static void sleep(final int seconds, final Logger logger) throws InterruptedException {
+    public static void sleep(final int seconds) throws InterruptedException {
         logger.info("Sleeping for " + seconds + " seconds");
         Thread.sleep(seconds * 1000);
     }
@@ -359,7 +362,7 @@ public final class SeleniumUtilities {
         return elements.get(0).getText();
     }
 
-    public static void acceptAlertIfPresent(final WebDriver driver, final Logger logger) {
+    public static void acceptAlertIfPresent(final WebDriver driver) {
         try {
             var alert = driver.switchTo().alert();
             alert.accept();
