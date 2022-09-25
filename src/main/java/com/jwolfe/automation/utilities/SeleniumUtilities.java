@@ -290,6 +290,27 @@ public final class SeleniumUtilities {
         }
     }
 
+    public static void clickButtonByClassNameIfExists(final WebDriver driver, final String className) {
+        boolean clicked = false;
+        try {
+            driver.manage().timeouts().implicitlyWait(0, TimeUnit.MILLISECONDS);
+
+            var elements = driver.findElements(By.className(className));
+            if (elements.size() != 0) {
+                elements.get(0).click();
+                clicked = true;
+            }
+        } catch (Exception ex) {
+            clicked = false;
+        } finally {
+            driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+        }
+
+        if (!clicked) {
+            logger.info("Could not find element to click - class name: " + className + ". Proceeding");
+        }
+    }
+
     public static void sleep(final int seconds) throws InterruptedException {
         logger.info("Sleeping for " + seconds + " seconds");
         Thread.sleep(seconds * 1000);
