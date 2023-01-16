@@ -7,6 +7,10 @@ public class AutomationConfiguration {
 
     private String outputFilePath;
 
+    private String outputDirectory;
+
+    private String outputFile;
+
     private boolean appendToFile;
 
     private boolean backupExistingFile;
@@ -29,6 +33,22 @@ public class AutomationConfiguration {
 
     public void setExtractorDefinitions(List<ExtractorDefinition> extractorDefinitions) {
         this.extractorDefinitions = extractorDefinitions;
+    }
+
+    public String getOutputDirectory() {
+        return outputDirectory;
+    }
+
+    public void setOutputDirectory(final String outputDirectory) {
+        this.outputDirectory = outputDirectory;
+    }
+
+    public String getOutputFile() {
+        return outputFile;
+    }
+
+    public void setOutputFile(final String outputFile) {
+        this.outputFile = outputFile;
     }
 
     public String getOutputFilePath() {
