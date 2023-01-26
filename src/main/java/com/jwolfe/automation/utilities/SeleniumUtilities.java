@@ -96,43 +96,47 @@ public final class SeleniumUtilities {
     }
 
     public static void waitTillElementPresent(final WebDriver driver, final String id) {
-        (new WebDriverWait(driver, 10)).until(ExpectedConditions.presenceOfElementLocated(By.id(id)));
+        waitTillElementReachesExpectedCondition(driver, 10, ExpectedConditions.presenceOfElementLocated(By.id(id)));
     }
 
     public static void waitTillXPathElementPresent(final WebDriver driver, final String elementXPath, final int timeout) {
-        (new WebDriverWait(driver, timeout)).until(ExpectedConditions.presenceOfElementLocated(By.xpath(elementXPath)));
+        waitTillElementReachesExpectedCondition(driver, timeout, ExpectedConditions.presenceOfElementLocated(By.xpath(elementXPath)));
     }
 
     public static void waitTillXPathElementPresent(final WebDriver driver, final String elementXPath) {
-        (new WebDriverWait(driver, 10)).until(ExpectedConditions.presenceOfElementLocated(By.xpath(elementXPath)));
+        waitTillElementReachesExpectedCondition(driver, 10, ExpectedConditions.presenceOfElementLocated(By.xpath(elementXPath)));
     }
 
     public static void waitTillElementVisible(final WebDriver driver, final WebElement element) {
-        (new WebDriverWait(driver, 10)).until(ExpectedConditions.visibilityOf(element));
+        waitTillElementReachesExpectedCondition(driver, 10, ExpectedConditions.visibilityOf(element));
     }
 
     public static void waitTillElementVisible(final WebDriver driver, final String id) {
-        (new WebDriverWait(driver, 10)).until(ExpectedConditions.visibilityOfElementLocated(By.id(id)));
+        waitTillElementReachesExpectedCondition(driver, 10, ExpectedConditions.visibilityOfElementLocated(By.id(id)));
+    }
+
+    public static void waitTillElementVisible(final WebDriver driver, final String id, final int timeOutInSeconds) {
+        waitTillElementReachesExpectedCondition(driver, timeOutInSeconds, ExpectedConditions.visibilityOfElementLocated(By.id(id)));
     }
 
     public static void waitTillElementByIdVisible(final WebDriver driver, final String id) {
-        (new WebDriverWait(driver, 10)).until(ExpectedConditions.visibilityOfElementLocated(By.id(id)));
+        waitTillElementReachesExpectedCondition(driver, 10, ExpectedConditions.visibilityOfElementLocated(By.id(id)));
     }
 
     public static void waitTillElementByNameVisible(final WebDriver driver, final String name) {
-        (new WebDriverWait(driver, 10)).until(ExpectedConditions.visibilityOfElementLocated(By.name(name)));
+        waitTillElementReachesExpectedCondition(driver, 10, ExpectedConditions.visibilityOfElementLocated(By.name(name)));
     }
 
     public static void waitTillElementByClassVisible(final WebDriver driver, final String className) {
-        (new WebDriverWait(driver, 10)).until(ExpectedConditions.visibilityOfElementLocated(By.className(className)));
+        waitTillElementReachesExpectedCondition(driver, 10, ExpectedConditions.visibilityOfElementLocated(By.className(className)));
     }
 
     public static void waitTillXPathElementVisible(final WebDriver driver, final String elementXPath, final int timeout) {
-        (new WebDriverWait(driver, timeout)).until(ExpectedConditions.visibilityOfElementLocated(By.xpath(elementXPath)));
+        waitTillElementReachesExpectedCondition(driver, timeout, ExpectedConditions.visibilityOfElementLocated(By.xpath(elementXPath)));
     }
 
     public static void waitTillXPathElementVisible(final WebDriver driver, final String elementXPath) {
-        (new WebDriverWait(driver, 10)).until(ExpectedConditions.visibilityOfElementLocated(By.xpath(elementXPath)));
+        waitTillElementReachesExpectedCondition(driver, 10, ExpectedConditions.visibilityOfElementLocated(By.xpath(elementXPath)));
     }
 
     public static void scrollElementByXPathToView(final WebDriver driver, final String elementXPath) {
@@ -141,12 +145,17 @@ public final class SeleniumUtilities {
     }
 
     public static void waitTillElementClickable(final WebDriver driver, final WebElement element) {
-        (new WebDriverWait(driver, 10)).until(ExpectedConditions.elementToBeClickable(element));
+        waitTillElementReachesExpectedCondition(driver, 10, ExpectedConditions.elementToBeClickable(element));
     }
 
     public static void waitTillXPathElementClickable(final WebDriver driver, final String elementXPath) {
-        (new WebDriverWait(driver, 10)).until(ExpectedConditions.elementToBeClickable(By.xpath(elementXPath)));
+        waitTillElementReachesExpectedCondition(driver, 10, ExpectedConditions.elementToBeClickable(By.xpath(elementXPath)));
     }
+
+    private static void waitTillElementReachesExpectedCondition(final WebDriver driver, final  int timeOutInSeconds, final ExpectedCondition<WebElement> condition) {
+        (new WebDriverWait(driver, timeOutInSeconds)).until(condition);
+    }
+
 
     public static void waitAndClickXPathElement(final WebDriver driver, final String elementXPath) {
         waitAndClickXPathElement(driver, elementXPath, null);
