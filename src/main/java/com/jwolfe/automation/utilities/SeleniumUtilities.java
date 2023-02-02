@@ -276,7 +276,7 @@ public final class SeleniumUtilities {
     public static void clickButtonByIdIfExists(final WebDriver driver, final String iframeId, final String buttonId) {
         boolean clicked = false;
         try {
-            driver.manage().timeouts().implicitlyWait(0, TimeUnit.MILLISECONDS);
+            driver.manage().timeouts().implicitlyWait(2000, TimeUnit.MILLISECONDS);
             var frames = driver.findElements(By.id(iframeId));
             if (frames.size() != 0) {
                 driver.switchTo().frame(frames.get(0));
