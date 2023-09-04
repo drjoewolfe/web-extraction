@@ -352,6 +352,10 @@ public final class SeleniumUtilities {
         return Double.parseDouble(element.getText().replace("Rs.", "").replaceAll("[^0-9\\.]", ""));
     }
 
+    public static double getDoubleForRupees(final String str) {
+        return Double.parseDouble(str.replace("Rs.", "").replaceAll("[^0-9\\.]", ""));
+    }
+
     public static double getDouble(final WebElement rootElement, final String childXPath) {
         return Double.parseDouble(rootElement.findElement(By.xpath(childXPath)).getText().replaceAll("[^0-9\\.]", ""));
     }
