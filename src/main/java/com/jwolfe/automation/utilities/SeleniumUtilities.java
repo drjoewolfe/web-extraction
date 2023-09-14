@@ -316,6 +316,24 @@ public final class SeleniumUtilities {
         }
     }
 
+    public static void clickButtonByClassNameIfExists(final WebDriver driver, final String iframeid, final String className) {
+        try {
+            driver.manage().timeouts().implicitlyWait(0, TimeUnit.MILLISECONDS);
+
+            var frames = driver.findElements(By.id(iframeid));
+            if (frames.size() == 0) {
+                return;
+            }
+        }
+        finally {
+            driver.manage().timeouts().implicitlyWait(10, TimeUnit.MILLISECONDS);
+        }
+
+        driver.switchTo().frame(iframeid);
+        clickButtonByClassNameIfExists(driver, className);
+        driver.switchTo().defaultContent();
+    }
+
     public static void sleep(final int seconds) throws InterruptedException {
         logger.info("Sleeping for " + seconds + " seconds");
         Thread.sleep(seconds * 1000);
