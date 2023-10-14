@@ -127,6 +127,10 @@ public final class SeleniumUtilities {
         waitTillElementReachesExpectedCondition(driver, 10, ExpectedConditions.visibilityOfElementLocated(By.className(className)));
     }
 
+    public static void waitTillElementByTagNameVisible(final WebDriver driver, final String tagName) {
+        waitTillElementReachesExpectedCondition(driver, 10, ExpectedConditions.visibilityOfElementLocated(By.tagName(tagName)));
+    }
+
     public static void waitTillXPathElementVisible(final WebDriver driver, final String elementXPath, final int timeout) {
         waitTillElementReachesExpectedCondition(driver, timeout, ExpectedConditions.visibilityOfElementLocated(By.xpath(elementXPath)));
     }
