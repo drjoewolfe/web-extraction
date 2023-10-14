@@ -152,19 +152,27 @@ public final class SeleniumUtilities {
         waitTillElementReachesExpectedCondition(driver, 10, ExpectedConditions.elementToBeClickable(By.xpath(elementXPath)));
     }
 
+    public static void waitTillXPathElementClickable(final WebDriver driver, final  int timeOutInSeconds, final String elementXPath) {
+        waitTillElementReachesExpectedCondition(driver, timeOutInSeconds, ExpectedConditions.elementToBeClickable(By.xpath(elementXPath)));
+    }
+
     private static void waitTillElementReachesExpectedCondition(final WebDriver driver, final  int timeOutInSeconds, final ExpectedCondition<WebElement> condition) {
         (new WebDriverWait(driver, timeOutInSeconds)).until(condition);
     }
 
 
     public static void waitAndClickXPathElement(final WebDriver driver, final String elementXPath) {
-        waitAndClickXPathElement(driver, elementXPath, null);
+        waitAndClickXPathElement(driver, elementXPath, 10, null);
     }
 
-    public static void waitAndClickXPathElement(final WebDriver driver, final String elementXPath, final Function<? super WebDriver, Boolean> additionalWaitPredicate) {
-        waitTillXPathElementClickable(driver, elementXPath);
+    public static void waitAndClickXPathElement(final WebDriver driver, final String elementXPath, final  int timeOutInSeconds) {
+        waitAndClickXPathElement(driver, elementXPath, timeOutInSeconds, null);
+    }
+
+    public static void waitAndClickXPathElement(final WebDriver driver, final String elementXPath, final  int timeOutInSeconds, final Function<? super WebDriver, Boolean> additionalWaitPredicate) {
+        waitTillXPathElementClickable(driver, timeOutInSeconds, elementXPath);
         if (additionalWaitPredicate != null) {
-            (new WebDriverWait(driver, 10)).until(additionalWaitPredicate);
+            (new WebDriverWait(driver, timeOutInSeconds)).until(additionalWaitPredicate);
         }
 
         WebElement clickableElement = driver.findElement(By.xpath(elementXPath));
