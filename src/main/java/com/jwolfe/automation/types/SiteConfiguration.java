@@ -11,6 +11,7 @@ public class SiteConfiguration {
     private String phoneNumber;
     private String encryptedPassword;
     private String password;
+    private String mobile;
     private String pan;
     private String pin;
 
@@ -92,6 +93,14 @@ public class SiteConfiguration {
 
     public void setPassword(final String password) {
         this.password = password;
+    }
+
+    public String getMobile() {
+        return mobile;
+    }
+
+    public void setMobile(final String mobile) {
+        this.mobile = mobile;
     }
 
     public String getPan() {
