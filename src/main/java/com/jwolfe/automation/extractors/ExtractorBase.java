@@ -254,7 +254,7 @@ public abstract class ExtractorBase implements Extractor {
                 logger.warn(failedMessage);
             }
 
-            logger.warn("Optional step failed. Marking as partial success.");
+            logger.warn("Optional step failed. Marking as partial success. (Exception: " + ex.getMessage() + ")");
             result.setRunStatus(RunStatus.Partial);
         }
     }
