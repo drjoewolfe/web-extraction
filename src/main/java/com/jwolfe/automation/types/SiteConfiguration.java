@@ -1,7 +1,6 @@
 package com.jwolfe.automation.types;
 
 public class SiteConfiguration {
-//    private String name;
     private String institution;
     private String startingUrl;
     private String startingContent;
@@ -14,14 +13,7 @@ public class SiteConfiguration {
     private String mobile;
     private String pan;
     private String pin;
-
-//    public String getName() {
-//        return name;
-//    }
-//
-//    public void setName(final String name) {
-//        this.name = name;
-//    }
+    private String dateOfBirth;
 
     public String getInstitution() {
         return institution;
@@ -117,6 +109,14 @@ public class SiteConfiguration {
 
     public void setPin(final String pin) {
         this.pin = pin;
+    }
+
+    public String getDateOfBirth() {
+        return dateOfBirth;
+    }
+
+    public void setDateOfBirth(final String dateOfBirth) {
+        this.dateOfBirth = dateOfBirth;
     }
 
     public SiteConfiguration() {
