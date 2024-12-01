@@ -477,4 +477,13 @@ public final class SeleniumUtilities {
             // No alert
         }
     }
+
+    public static boolean isXPathElementVisible(final WebDriver driver, final String elementXPath) {
+        try {
+            WebElement element = driver.findElement(By.xpath(elementXPath));
+            return element.isDisplayed();
+        } catch (NoSuchElementException e) {
+            return false;
+        }
+    }
 }
