@@ -365,6 +365,11 @@ public final class SeleniumUtilities {
         return rootElement.findElement(By.xpath(childXPath)).getText();
     }
 
+    public static String capitalize(final String str) {
+        String capStr = str.substring(0, 1).toUpperCase() + str.substring(1);
+        return capStr;
+    }
+
     public static double  getDouble(final WebElement element) {
         return Double.parseDouble(element.getText().replaceAll("[^0-9\\.]", ""));
     }
