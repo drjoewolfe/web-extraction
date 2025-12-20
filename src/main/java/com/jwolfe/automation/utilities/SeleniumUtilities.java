@@ -15,6 +15,7 @@ import java.net.URISyntaxException;
 import java.net.URL;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.Duration;
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
 import java.util.function.Function;
@@ -58,7 +59,7 @@ public final class SeleniumUtilities {
         logger.info("Waiting for url suffix - " + urlSuffix);
         String lowerUrlSuffix = urlSuffix.toLowerCase();
 
-        (new WebDriverWait(driver, timeOutInSeconds)).until(new ExpectedCondition<Boolean>() {
+        (new WebDriverWait(driver, Duration.ofSeconds(timeOutInSeconds))).until(new ExpectedCondition<Boolean>() {
             public Boolean apply(WebDriver d) {
                 try {
                     return new URI(d.getCurrentUrl()).getPath().toLowerCase().endsWith(lowerUrlSuffix);
@@ -78,7 +79,7 @@ public final class SeleniumUtilities {
         logger.info("Waiting for url path suffix - " + pathSuffix);
         String lowerPathSuffix = pathSuffix.toLowerCase();
 
-        (new WebDriverWait(driver, 10)).until(new ExpectedCondition<Boolean>() {
+        (new WebDriverWait(driver, Duration.ofSeconds(10))).until(new ExpectedCondition<Boolean>() {
             public Boolean apply(WebDriver d) {
                 try {
                     var url = new URL(d.getCurrentUrl());
@@ -95,7 +96,7 @@ public final class SeleniumUtilities {
         logger.info("Waiting for url ref suffix - " + suffix);
         String lowerSuffix = suffix.toLowerCase();
 
-        (new WebDriverWait(driver, 10)).until(new ExpectedCondition<Boolean>() {
+        (new WebDriverWait(driver, Duration.ofSeconds(10))).until(new ExpectedCondition<Boolean>() {
             public Boolean apply(WebDriver d) {
                 try {
                     var url = new URL(d.getCurrentUrl());
@@ -174,7 +175,7 @@ public final class SeleniumUtilities {
     }
 
     private static void waitTillElementReachesExpectedCondition(final WebDriver driver, final  int timeOutInSeconds, final ExpectedCondition<WebElement> condition) {
-        (new WebDriverWait(driver, timeOutInSeconds)).until(condition);
+        (new WebDriverWait(driver, Duration.ofSeconds(timeOutInSeconds))).until(condition);
     }
 
 
@@ -189,7 +190,7 @@ public final class SeleniumUtilities {
     public static void waitAndClickXPathElement(final WebDriver driver, final String elementXPath, final  int timeOutInSeconds, final Function<? super WebDriver, Boolean> additionalWaitPredicate) {
         waitTillXPathElementClickable(driver, timeOutInSeconds, elementXPath);
         if (additionalWaitPredicate != null) {
-            (new WebDriverWait(driver, timeOutInSeconds)).until(additionalWaitPredicate);
+            (new WebDriverWait(driver, Duration.ofSeconds(timeOutInSeconds))).until(additionalWaitPredicate);
         }
 
         WebElement clickableElement = driver.findElement(By.xpath(elementXPath));
@@ -199,7 +200,7 @@ public final class SeleniumUtilities {
     public static boolean elementByIdExists(final WebDriver driver, final String id) {
         boolean exists = false;
         try {
-            driver.manage().timeouts().implicitlyWait(0, TimeUnit.MILLISECONDS);
+            driver.manage().timeouts().implicitlyWait(Duration.ofMillis(0));
 
             var buttons = driver.findElements(By.id(id));
             if (buttons.size() != 0) {
@@ -208,7 +209,7 @@ public final class SeleniumUtilities {
         } catch (Exception ex) {
             exists = false;
         } finally {
-            driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+            driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
         }
 
         if (exists) {
@@ -223,7 +224,7 @@ public final class SeleniumUtilities {
     public static boolean elementByClassNameExists(final WebDriver driver, final String className) {
         boolean exists = false;
         try {
-            driver.manage().timeouts().implicitlyWait(0, TimeUnit.MILLISECONDS);
+            driver.manage().timeouts().implicitlyWait(Duration.ofMillis(10));
 
             var elements = driver.findElements(By.className(className));
             if (elements.size() != 0) {
@@ -232,7 +233,7 @@ public final class SeleniumUtilities {
         } catch (Exception ex) {
             exists = false;
         } finally {
-            driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+            driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
         }
 
         if (exists) {
@@ -259,7 +260,7 @@ public final class SeleniumUtilities {
     public static void clickButtonByIdIfExists(final WebDriver driver, final String buttonId) {
         boolean clicked = false;
         try {
-            driver.manage().timeouts().implicitlyWait(0, TimeUnit.MILLISECONDS);
+            driver.manage().timeouts().implicitlyWait(Duration.ofMillis(0));
 
             var buttons = driver.findElements(By.id(buttonId));
             if (buttons.size() != 0) {
@@ -269,7 +270,7 @@ public final class SeleniumUtilities {
         } catch (Exception ex) {
             clicked = false;
         } finally {
-            driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+            driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
         }
 
         if (!clicked) {
@@ -280,7 +281,7 @@ public final class SeleniumUtilities {
     public static void clickElementByXPathIfExists(final WebDriver driver, final String xpath) {
         boolean clicked = false;
         try {
-            driver.manage().timeouts().implicitlyWait(0, TimeUnit.MILLISECONDS);
+            driver.manage().timeouts().implicitlyWait(Duration.ofMillis(0));
 
             var elements = driver.findElements(By.xpath(xpath));
             if (elements.size() != 0) {
@@ -290,7 +291,7 @@ public final class SeleniumUtilities {
         } catch (Exception ex) {
             clicked = false;
         } finally {
-            driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+            driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
         }
 
         if (!clicked) {
@@ -301,7 +302,7 @@ public final class SeleniumUtilities {
     public static void clickButtonByIdIfExists(final WebDriver driver, final String iframeId, final String buttonId) {
         boolean clicked = false;
         try {
-            driver.manage().timeouts().implicitlyWait(2000, TimeUnit.MILLISECONDS);
+            driver.manage().timeouts().implicitlyWait(Duration.ofMillis(2000));
             var frames = driver.findElements(By.id(iframeId));
             if (frames.size() != 0) {
                 driver.switchTo().frame(frames.get(0));
@@ -316,7 +317,7 @@ public final class SeleniumUtilities {
             clicked = false;
         } finally {
             driver.switchTo().defaultContent();
-            driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+            driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
         }
 
         if (!clicked) {
@@ -327,7 +328,7 @@ public final class SeleniumUtilities {
     public static void clickButtonByClassNameIfExists(final WebDriver driver, final String className) {
         boolean clicked = false;
         try {
-            driver.manage().timeouts().implicitlyWait(0, TimeUnit.MILLISECONDS);
+            driver.manage().timeouts().implicitlyWait(Duration.ofMillis(0));
 
             var elements = driver.findElements(By.className(className));
             if (elements.size() != 0) {
@@ -337,7 +338,7 @@ public final class SeleniumUtilities {
         } catch (Exception ex) {
             clicked = false;
         } finally {
-            driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+            driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
         }
 
         if (!clicked) {
@@ -347,7 +348,7 @@ public final class SeleniumUtilities {
 
     public static void clickButtonByClassNameIfExists(final WebDriver driver, final String iframeid, final String className) {
         try {
-            driver.manage().timeouts().implicitlyWait(0, TimeUnit.MILLISECONDS);
+            driver.manage().timeouts().implicitlyWait(Duration.ofMillis(0));
 
             var frames = driver.findElements(By.id(iframeid));
             if (frames.size() == 0) {
@@ -355,7 +356,7 @@ public final class SeleniumUtilities {
             }
         }
         finally {
-            driver.manage().timeouts().implicitlyWait(10, TimeUnit.MILLISECONDS);
+            driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
         }
 
         driver.switchTo().frame(iframeid);

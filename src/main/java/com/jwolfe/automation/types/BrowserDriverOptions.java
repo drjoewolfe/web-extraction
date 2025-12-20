@@ -6,6 +6,7 @@ import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxOptions;
 
+import java.time.Duration;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
@@ -142,6 +143,8 @@ public class BrowserDriverOptions {
     }
 
     public ChromeOptions getChromeOptions() {
+        System.out.println(new org.openqa.selenium.BuildInfo().getReleaseLabel());
+
         Map<String, Object> prefs = new HashMap<>();
         prefs.put("profile.default_content_setting_values.notifications", 2);
 
@@ -156,20 +159,19 @@ public class BrowserDriverOptions {
         ChromeOptions options = new ChromeOptions();
         options.setExperimentalOption("prefs", prefs);
 
+        // ⚠️ Must be --user-data-dir=
         if (getChromeUserDataDirectory() != null) {
-            options.addArguments(getChromeUserDataDirectory());
+            options.addArguments("--user-data-dir=" + getChromeUserDataDirectory());
         }
 
-        if (isChromeW3CEnabled()) {
-            options.setExperimentalOption("w3c", true);
-        }
+        // ❌ W3C removed in Selenium 4 → DO NOT USE
 
         if (isChromeNoSandbox()) {
             options.addArguments("--no-sandbox");
         }
 
         if (isChromeStartMaximized()) {
-            options.addArguments("start-maximized");
+            options.addArguments("--start-maximized");
         }
 
         if (isChromeDisableExtensions()) {
@@ -184,12 +186,67 @@ public class BrowserDriverOptions {
             options.addArguments("--disable-popup-blocking");
         }
 
+        // Optional — cosmetic only
         options.addArguments("--disable-blink-features=AutomationControlled");
-        options.setExperimentalOption("excludeSwitches", Collections.singletonList("enable-automation"));
-        options.setExperimentalOption("useAutomationExtension", false);
+
+        // Still allowed, but no longer hides automation
+        options.setExperimentalOption(
+                "excludeSwitches",
+                Collections.singletonList("enable-automation")
+        );
 
         return options;
     }
+
+//    public ChromeOptions getChromeOptions() {
+//        Map<String, Object> prefs = new HashMap<>();
+//        prefs.put("profile.default_content_setting_values.notifications", 2);
+//
+//        if (isChromeCredentialsServiceEnabled()) {
+//            prefs.put("credentials_enable_service", true);
+//        }
+//
+//        if (isChromePasswordManagerEnabled()) {
+//            prefs.put("profile.password_manager_enabled", true);
+//        }
+//
+//        ChromeOptions options = new ChromeOptions();
+//        options.setExperimentalOption("prefs", prefs);
+//
+//        if (getChromeUserDataDirectory() != null) {
+//            options.addArguments(getChromeUserDataDirectory());
+//        }
+//
+//        if (isChromeW3CEnabled()) {
+//            options.setExperimentalOption("w3c", true);
+//        }
+//
+//        if (isChromeNoSandbox()) {
+//            options.addArguments("--no-sandbox");
+//        }
+//
+//        if (isChromeStartMaximized()) {
+//            options.addArguments("start-maximized");
+//        }
+//
+//        if (isChromeDisableExtensions()) {
+//            options.addArguments("--disable-extensions");
+//        }
+//
+//        if (isChromeDisableNotifications()) {
+//            options.addArguments("--disable-notifications");
+//        }
+//
+//        if (isChromeDisablePopupBlocking()) {
+//            options.addArguments("--disable-popup-blocking");
+//        }
+//
+//        options.addArguments("--disable-blink-features=AutomationControlled");
+//        options.setExperimentalOption("excludeSwitches", Collections.singletonList("enable-automation"));
+//        options.setExperimentalOption("useAutomationExtension", false);
+//
+//        return options;
+//    }
 
     public FirefoxOptions getFirefoxOptions() {
         FirefoxOptions options = new FirefoxOptions();
@@ -232,7 +289,7 @@ public class BrowserDriverOptions {
             driver.manage().window().maximize();
         }
 
-        driver.manage().timeouts().implicitlyWait(getChromeImplicitTimeout(), TimeUnit.SECONDS);
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(getChromeImplicitTimeout()));
 
         return driver;
     }
