@@ -91,6 +91,23 @@ public final class SeleniumUtilities {
         });
     }
 
+    public static void waitTillNavigatedToUrlRefSuffix(final WebDriver driver, final String suffix) {
+        logger.info("Waiting for url ref suffix - " + suffix);
+        String lowerSuffix = suffix.toLowerCase();
+
+        (new WebDriverWait(driver, 10)).until(new ExpectedCondition<Boolean>() {
+            public Boolean apply(WebDriver d) {
+                try {
+                    var url = new URL(d.getCurrentUrl());
+                    return url.getRef().toLowerCase().endsWith(lowerSuffix);
+                } catch (MalformedURLException e) {
+                    e.printStackTrace();
+                    return false;
+                }
+            }
+        });
+    }
+
     public static void waitTillElementPresent(final WebDriver driver, final String id) {
         waitTillElementReachesExpectedCondition(driver, 10, ExpectedConditions.presenceOfElementLocated(By.id(id)));
     }
