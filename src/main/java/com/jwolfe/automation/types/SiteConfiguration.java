@@ -6,6 +6,7 @@ public class SiteConfiguration {
     private String startingContent;
     private String loginUrl;
     private String portfolioUrl;
+    private String logoutUrl;
     private String userName;
     private String phoneNumber;
     private String encryptedPassword;
@@ -53,6 +54,14 @@ public class SiteConfiguration {
 
     public void setPortfolioUrl(final String portfolioUrl) {
         this.portfolioUrl = portfolioUrl;
+    }
+
+    public String getLogoutUrl() {
+        return logoutUrl;
+    }
+
+    public void setLogoutUrl(final String logoutUrl) {
+        this.logoutUrl = logoutUrl;
     }
 
     public String getUserName() {
