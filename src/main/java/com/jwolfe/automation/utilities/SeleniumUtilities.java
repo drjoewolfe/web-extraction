@@ -17,6 +17,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.Duration;
 import java.util.Date;
+import java.util.Random;
 import java.util.concurrent.TimeUnit;
 import java.util.function.Function;
 
@@ -378,6 +379,22 @@ public final class SeleniumUtilities {
         }
     }
 
+    public static void sendKeysNatural(final WebElement element, final String text) {
+        Random random = new Random();
+
+        for (int i = 0; i < text.length(); i++) {
+            char c = text.charAt(i);
+            String s = String.valueOf(c);
+            element.sendKeys(s);
+
+            // Random delay between 100ms and 300ms
+            try {
+                Thread.sleep(random.nextInt(300) + 100);
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+            }
+        }
+    }
 
     public static String getString(final WebElement rootElement, final String childXPath) {
         return rootElement.findElement(By.xpath(childXPath)).getText();
