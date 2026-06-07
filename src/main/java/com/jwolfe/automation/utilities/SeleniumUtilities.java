@@ -22,7 +22,7 @@ import java.util.concurrent.TimeUnit;
 import java.util.function.Function;
 
 public final class SeleniumUtilities {
-    protected static final Logger logger = LogManager.getLogger();
+    protected static final Logger logger = LogManager.getLogger(SeleniumUtilities.class);
 
     private SeleniumUtilities() {
 

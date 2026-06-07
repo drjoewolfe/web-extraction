@@ -17,7 +17,7 @@ import java.util.Date;
 import java.util.Scanner;
 
 public class JsonExporter implements Exporter {
-    private static final Logger logger = LogManager.getLogger("JsonExporter");
+    private static final Logger logger = LogManager.getLogger(JsonExporter.class);
 
     public boolean export(Extract extract, String outputFilePath, boolean appendToFile, boolean backupExistingFile) {
         logger.info("Exporting extract to " + outputFilePath);

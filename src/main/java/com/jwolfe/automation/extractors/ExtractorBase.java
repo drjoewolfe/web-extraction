@@ -15,7 +15,7 @@ import java.util.List;
 import java.util.function.Consumer;
 
 public abstract class ExtractorBase implements Extractor {
-    protected final Logger logger = LogManager.getLogger();
+    protected final Logger logger = LogManager.getLogger(ExtractorBase.class);
 
     private String extractorName;
     private String description;

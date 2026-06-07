@@ -17,7 +17,7 @@ import java.util.function.Consumer;
 import java.util.stream.Collectors;
 
 public class ExtractorAutomation {
-    private static final Logger logger = LogManager.getLogger("ExtractorAutomation");
+    private static final Logger logger = LogManager.getLogger(ExtractorAutomation.class);
     private List<RunSummaryUpdatedListener> runSummmaryUpdatedlisteners = new ArrayList<RunSummaryUpdatedListener>();
 
     private static WebDriver driver;
