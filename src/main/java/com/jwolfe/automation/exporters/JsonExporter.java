@@ -2,6 +2,7 @@ package com.jwolfe.automation.exporters;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.module.SimpleModule;
 import com.jwolfe.automation.types.Extract;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.logging.log4j.LogManager;
@@ -25,6 +26,12 @@ public class JsonExporter implements Exporter {
 
         ObjectMapper mapper = new ObjectMapper();
         mapper.setDateFormat(df);
+
+        SimpleModule module = new SimpleModule();
+        module.addSerializer(Double.class, new PlainDoubleSerializer());
+        module.addSerializer(Double.TYPE, new PlainDoubleSerializer());
+
+        mapper.registerModule(module);
 
         StringBuilder json = new StringBuilder();
         try {
